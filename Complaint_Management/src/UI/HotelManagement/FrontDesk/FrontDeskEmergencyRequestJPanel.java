@@ -4,6 +4,19 @@
  */
 package UI.HotelManagement.FrontDesk;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.AssaultOrganization;
+import Business.Organization.HouseKeepingOrganization;
+import Business.Organization.HotelOrganization;
+import Business.Organization.TheftOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.EmergencyRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author pulakantidikshithreddy
@@ -13,9 +26,21 @@ public class FrontDeskEmergencyRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form FrontDeskEmergencyRequestJPanel
      */
-    public FrontDeskEmergencyRequestJPanel() {
+    public String message1 = null;
+    private JPanel userProcessContainer;
+    private HotelEnterprise enterprise;
+    private UserAccount userAccount; 
+    private HotelNetwork network;
+    public FrontDeskEmergencyRequestJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        this.userAccount = userAccount;
+        this.network=network;
+        populateComboBox();
     }
+    
+    EmergencyRequest  erequest = new EmergencyRequest();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,14 +62,29 @@ public class FrontDeskEmergencyRequestJPanel extends javax.swing.JPanel {
         jLabel1.setText("Front Desk Emergency Requests");
 
         backJButton.setText("Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backJButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Emergency Type :");
 
         locationlbl.setText("Location :");
 
         combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboActionPerformed(evt);
+            }
+        });
 
         btnsendemergency.setText("Send Emergency Request");
+        btnsendemergency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsendemergencyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,6 +129,99 @@ public class FrontDeskEmergencyRequestJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        FrontDeskWorkAreaJPanel FDWA = (FrontDeskWorkAreaJPanel) component;
+        FDWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backJButtonActionPerformed
+
+    private void btnsendemergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsendemergencyActionPerformed
+        // TODO add your handling code here:
+        String location = locationtxtfield.getText();
+        erequest.setLocation(location);
+        erequest.setEmergencytype((HotelOrganization.Type) combo.getSelectedItem());
+        erequest.setEmail(userAccount.getEmail());
+         HotelOrganization org = null;
+         HotelOrganization.Type sel = (HotelOrganization.Type) combo.getSelectedItem();
+      if(location.isEmpty())
+      {
+       
+            JOptionPane.showMessageDialog(null,"Location field should not be empty");     
+    }
+        
+        else
+        {
+            
+            
+            if(sel.equals(HotelOrganization.Type.Theft))
+        {   
+        for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+            if (organization instanceof TheftOrganization){
+                org = organization;
+                break;
+            } 
+                  }
+        }
+        if (org!=null){
+            org.getStatusQueue().getStatusRequestList().add(erequest);
+            userAccount.getStatusQueue().getStatusRequestList().add(erequest);
+        }
+        }
+          else if(sel.equals(HotelOrganization.Type.Assault))
+        {
+        
+        for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+            if (organization instanceof AssaultOrganization){
+                org = organization;
+                break;
+            } }
+        }
+        
+        if (org!=null){
+            org.getStatusQueue().getStatusRequestList().add(erequest);
+            userAccount.getStatusQueue().getStatusRequestList().add(erequest);
+        }
+        }
+        
+          JOptionPane.showMessageDialog(null,"Your emergency request has been sent! An officer will notify you shortly");
+        
+            
+        }
+    }                                                
+
+    private void locationtxtfieldActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        // TODO add your handling code here:
+        
+        if(locationtxtfield.getText()!=""){
+        message1 = locationtxtfield.getText();
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message1);
+        }
+        else JOptionPane.showMessageDialog(null,"Location field should not be empty");
+        
+    }//GEN-LAST:event_btnsendemergencyActionPerformed
+
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboActionPerformed
+private void populateComboBox() {
+        
+         combo.removeAllItems();
+        combo.addItem(HotelOrganization.Type.Theft);
+        combo.addItem(HotelOrganization.Type.Assault);
+        
+       
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
