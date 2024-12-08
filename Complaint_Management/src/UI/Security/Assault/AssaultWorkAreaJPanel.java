@@ -4,6 +4,14 @@
  */
 package UI.Security.Assault;
 
+import Business.EcoSystem;
+import Business.Network.HotelNetwork;
+import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +21,23 @@ public class AssaultWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AssaultWorkAreaJPanel
      */
-    public AssaultWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private AssaultOrganization AssaultOrganization;
+    private HotelEnterprise enterprise;
+    private HotelNetwork network;
+    
+    public AssaultWorkAreaJPanel(JPanel userProcessContainer, UserAccount acc, HotelOrganization org, HotelEnterprise enterprise, EcoSystem eco, HotelNetwork network) {
         initComponents();
+        this.network=network;
+        this.userProcessContainer = userProcessContainer;
+        userAccount = acc;
+        business = eco;
+        this.AssaultOrganization = (AssaultOrganization)org;
+        this.enterprise=enterprise;
+        populateTable();
+        populateEmergencyTable();
     }
 
     /**
@@ -76,10 +99,25 @@ public class AssaultWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblWorkReq);
 
         btnAssign.setText("Assign to me");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         btnProcess.setText("Process");
+        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         tblEmrgcy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,6 +143,11 @@ public class AssaultWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setText("Emergency Locations:");
 
         btnSend.setText("Send Team");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -152,6 +195,71 @@ public class AssaultWorkAreaJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblWorkReq.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        StatusRequest request = (StatusRequest)tblWorkReq.getValueAt(selectedRow, 0);
+        if(request.getReceiver()!=null)
+            JOptionPane.showMessageDialog(null,"Request has already been assigned");
+        else
+        {
+            if(request.getStatus()=="Completed")
+                JOptionPane.showMessageDialog(null,"Request has already completed");
+            else
+                request.setReceiver(userAccount);
+          request.setStatus("Pending");
+        }
+        populateTable();
+    }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblWorkReq.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        Complaints_Suggestions_Request request = (Complaints_Suggestions_Request)WorkRequestsJTable.getValueAt(selectedRow, 0);
+        
+        if(request.getStatus()=="Completed")   
+            JOptionPane.showMessageDialog(null,"Request has been completed already");  
+        else if(request.getStatus()=="Sent")
+            JOptionPane.showMessageDialog(null,"Request has to be assigned first");  
+        else {
+            request.setStatus("Processing");
+            AssaultProcessStatusRequestJPanel processWorkRequestJPanel = new AssaultProcessStatusRequestJPanel(userProcessContainer, request);
+            userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
+    }//GEN-LAST:event_btnProcessActionPerformed
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblEmrgcy.getSelectedRow();
+
+        if (selectedRow < 0){
+            return;
+        }
+
+        EmergencyRequest request = (EmergencyRequest)tblEmrgcy.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        ValidateMail valMail = new ValidateMail();
+        valMail.sendAttachment();
+        JOptionPane.showMessageDialog(this,"Mail has been sent");
+    }//GEN-LAST:event_btnSendActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
@@ -167,4 +275,36 @@ public class AssaultWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblEmrgcy;
     private javax.swing.JTable tblWorkReq;
     // End of variables declaration//GEN-END:variables
+
+    public void populateTable(){
+        DefaultTableModel model = (DefaultTableModel)tblWorkReq.getModel();
+        
+        model.setRowCount(0);
+        
+        for(StatusRequest request : AssaultOrganization.getStatusQueue().getStatusRequestList()){
+            if(request instanceof Complaints_Suggestions_Request){
+            Object[] row = new Object[4];
+            row[0] = request;
+            row[1] = request.getSender().getEmployee().getName();
+            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[3] = request.getStatus();
+            model.addRow(row);
+            }
+        }
+    }
+
+    private void populateEmergencyTable() {
+        DefaultTableModel model = (DefaultTableModel)tblEmrgcy.getModel();
+        
+        model.setRowCount(0);
+        
+        for(StatusRequest request : AssaultOrganization.getStatusQueue().getStatusRequestList()){
+            if (request instanceof EmergencyRequest) {
+                        EmergencyRequest s = (EmergencyRequest) request;
+                        Object[] row = new Object[1];
+                        row[0] = s;
+                        model.addRow(row);
+            }
+        }
+    }
 }
