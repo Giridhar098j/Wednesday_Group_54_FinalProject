@@ -4,17 +4,30 @@
  */
 package UI.Cleaning.Admin;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Atharva
  */
 public class CleaningAdminWorkAreaJPanel extends javax.swing.JPanel {
+    
+    JPanel userProcessContainer;
+    HotelNetwork network;
+    HotelEnterprise enterprise;
 
     /**
      * Creates new form CleaningAdminWorkAreaJPanel
      */
-    public CleaningAdminWorkAreaJPanel() {
+    public CleaningAdminWorkAreaJPanel(JPanel userProcessContainer, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.network=network;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        valueLabel.setText(enterprise.getName());
     }
 
     /**
@@ -39,10 +52,25 @@ public class CleaningAdminWorkAreaJPanel extends javax.swing.JPanel {
         enterpriseLabel.setText("Enterprise:");
 
         btnmanagingOrganizations.setText("Managing Organizations");
+        btnmanagingOrganizations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmanagingOrganizationsActionPerformed(evt);
+            }
+        });
 
         btnManagingEmployees.setText("Managing Employees");
+        btnManagingEmployees.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManagingEmployeesActionPerformed(evt);
+            }
+        });
 
         btnManagingUsers.setText("Managing Users");
+        btnManagingUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManagingUsersActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -84,6 +112,32 @@ public class CleaningAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap(261, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnManagingUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagingUsersActionPerformed
+        // TODO add your handling code here:
+        CleaningManageUserAccountsJPanel MUJP = new CleaningManageUserAccountsJPanel(userProcessContainer, enterprise,network);
+        userProcessContainer.add("ManageUsersJPanel", MUJP);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnManagingUsersActionPerformed
+
+    private void btnManagingEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagingEmployeesActionPerformed
+        // TODO add your handling code here:
+        CleaningManageHotelEmployeeJPanel manageEmployeeJPanel = new CleaningManageHotelEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnManagingEmployeesActionPerformed
+
+    private void btnmanagingOrganizationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmanagingOrganizationsActionPerformed
+        // TODO add your handling code here:
+        CleaningManageHotelOrganizationJPanel manageOrganizationJPanel = new CleaningManageHotelOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        userProcessContainer.add("manageOrganizationJPanel", manageOrganizationJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnmanagingOrganizationsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -83,16 +83,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Managing Organizations"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnmanagingOrganizationsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnManagingEmployees">
       <Properties>
         <Property name="text" type="java.lang.String" value="Managing Employees"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManagingEmployeesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnManagingUsers">
       <Properties>
         <Property name="text" type="java.lang.String" value="Managing Users"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManagingUsersActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
