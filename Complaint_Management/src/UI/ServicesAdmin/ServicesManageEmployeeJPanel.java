@@ -4,17 +4,55 @@
  */
 package UI.ServicesAdmin;
 
+import Business.HotelEmployee.HotelEmployee;
+import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Atharva
  */
 public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
+    
+    public String message1 = null; 
+    private HotelOrganizationDirectory organizationDir;
+    private JPanel userProcessContainer;
 
     /**
      * Creates new form ServicesManageEmployeeJPanel
      */
-    public ServicesManageEmployeeJPanel() {
+    public ServicesManageEmployeeJPanel(JPanel userProcessContainer,HotelOrganizationDirectory organizationDir) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.organizationDir = organizationDir;
+        
+       // populateOrganizationComboBox();
+        populateOrganizationEmpComboBox();
+    }
+    
+     public void populateOrganizationEmpComboBox(){
+        organizationEmpcbox.removeAllItems();
+        
+        for (HotelOrganization organization : organizationDir.getHotelOrganizationList()){
+            organizationEmpcbox.addItem(organization);
+        }
+    }
+
+    private void populateTable(HotelOrganization organization){
+        DefaultTableModel model = (DefaultTableModel) OganizationsJTable.getModel();
+        
+        model.setRowCount(0);
+        
+        for (HotelEmployee employee : organization.getEmployeeDirectory().getHotelEmployeeList()){
+            Object[] row = new Object[1];
+          
+            row[0] = employee.getName();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -40,6 +78,11 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
         jLabel1.setText("Security Managing Employee");
 
         btnBack.setText("Back<<");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         OganizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,8 +102,24 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
         jLabel3.setText("Name:");
 
         organizationEmpcbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        organizationEmpcbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                organizationEmpcboxActionPerformed(evt);
+            }
+        });
+
+        namejTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namejTextFieldActionPerformed(evt);
+            }
+        });
 
         btnCreateEmployee.setText("Create Employee");
+        btnCreateEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateEmployeeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -112,6 +171,46 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCreateEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateEmployeeActionPerformed
+        // TODO add your handling code here:
+        HotelOrganization organization = (HotelOrganization) organizationEmpcbox.getSelectedItem();
+        if(nameJTextField.getText().isEmpty())
+        {
+            
+            
+            JOptionPane.showMessageDialog(null," Enter the Organisation Name ");
+        }
+        else 
+        {
+            
+            
+            organization.getEmployeeDirectory().createHotelEmployee(nameJTextField.getText());
+            populateTable(organization);
+            nameJTextField.setText("");
+            JOptionPane.showMessageDialog(null,"Employee has been Created Successfully!");
+        }
+    }//GEN-LAST:event_btnCreateEmployeeActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void namejTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namejTextFieldActionPerformed
+        // TODO add your handling code here:
+        if(namejTextField.getText()!=""){
+        message1 = namejTextField.getText();
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message1);
+        }
+        else JOptionPane.showMessageDialog(null,"Message field should not be empty");
+    }//GEN-LAST:event_namejTextFieldActionPerformed
+
+    private void organizationEmpcboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationEmpcboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_organizationEmpcboxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
