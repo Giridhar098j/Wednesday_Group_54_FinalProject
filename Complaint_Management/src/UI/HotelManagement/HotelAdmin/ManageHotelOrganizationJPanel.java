@@ -142,10 +142,6 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
        
         dir.createHotelOrganization(type);
         JOptionPane.showMessageDialog(null,"Organization has been added successfully");
-       
-        
-        
-            
         populateTable();
     }//GEN-LAST:event_btnAddActionPerformed
 
