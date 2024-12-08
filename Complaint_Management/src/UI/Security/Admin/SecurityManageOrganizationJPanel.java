@@ -4,6 +4,12 @@
  */
 package UI.Security.Admin;
 
+import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +19,15 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form SecurityManageOrganizationJPanel
      */
-    public SecurityManageOrganizationJPanel() {
+    private HotelOrganizationDirectory dir;
+    private JPanel userProcessContainer;
+    
+    public SecurityManageOrganizationJPanel(JPanel userProcessContainer,HotelOrganizationDirectory HOrgDir) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        dir = HOrgDir;
+        populateTable();
+        populateCombo();
     }
 
     /**
@@ -26,22 +39,22 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrganization = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        lblOrg = new javax.swing.JLabel();
+        cmbOrg = new javax.swing.JComboBox<>();
+        btnAddOrg = new javax.swing.JButton();
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Security Managing Organization");
+        lblTitle.setText("Security Managing Organization");
 
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,11 +77,16 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblOrganization);
 
-        jLabel2.setText("Organization :");
+        lblOrg.setText("Organization :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton2.setText("Add Organization");
+        btnAddOrg.setText("Add Organization");
+        btnAddOrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddOrgActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,9 +94,9 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(btnBack)
                 .addGap(102, 102, 102)
-                .addComponent(jLabel1)
+                .addComponent(lblTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(49, Short.MAX_VALUE)
@@ -86,13 +104,13 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(lblOrg)
                                 .addGap(40, 40, 40)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmbOrg, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnAddOrg)
                         .addGap(171, 171, 171))))
         );
         layout.setVerticalGroup(
@@ -100,32 +118,62 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(btnBack)
+                    .addComponent(lblTitle))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblOrg)
+                    .addComponent(cmbOrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jButton2)
+                .addComponent(btnAddOrg)
                 .addContainerGap(171, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnAddOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgActionPerformed
+        // TODO add your handling code here:
+        HotelOrganization.Type type = (HotelOrganization.Type) organizationJComboBox.getSelectedItem();
+        
+        dir.createHotelOrganization(type);
+        JOptionPane.showMessageDialog(null,"Organization has been added successfully!");
+        
+        populateTable();
+    }//GEN-LAST:event_btnAddOrgActionPerformed
+
+    private void populateTable(){
+        DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
+        model.setRowCount(0);
+        for (HotelOrganization organization : dir.getHotelOrganizationList()){
+            Object[] row = new Object[1];
+            row[0] = organization.getName();
+            model.addRow(row);
+        }
+    }
+    
+    private void populateCombo() {
+        cmbOrg.removeAllItems();
+        cmbOrg.addItem(HotelOrganization.Type.Assault);
+        cmbOrg.addItem(HotelOrganization.Type.Theft);
+       
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnAddOrg;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JComboBox<String> cmbOrg;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblOrg;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tblOrganization;
     // End of variables declaration//GEN-END:variables
 }
