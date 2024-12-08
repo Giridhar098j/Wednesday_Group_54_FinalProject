@@ -4,6 +4,12 @@
  */
 package UI.HotelManagement.HotelAdmin;
 
+import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +19,15 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageHotelOrganizationJPanel
      */
-    public ManageHotelOrganizationJPanel() {
+    private HotelOrganizationDirectory dir;
+    private JPanel userProcessContainer;
+    
+    public ManageHotelOrganizationJPanel(JPanel userProcessContainer,HotelOrganizationDirectory dir) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.dir = dir;
+        populateTable();
+        populateCombo();
     }
 
     /**
@@ -27,18 +40,23 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btnBack = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tblOrg = new javax.swing.JTable();
+        lblOrg = new javax.swing.JLabel();
+        cmbOrg = new javax.swing.JComboBox<>();
         btnAdd = new javax.swing.JButton();
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Hotel Organization Management");
+        lblTitle.setText("Hotel Organization Management");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrg.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -57,13 +75,18 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblOrg);
 
-        jLabel2.setText("Organization Type :");
+        lblOrg.setText("Organization Type :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAdd.setText("Add Organization");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,16 +99,16 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
                         .addGap(101, 101, 101)
-                        .addComponent(jLabel1))
+                        .addComponent(lblTitle))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(lblOrg)
                         .addGap(61, 61, 61)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbOrg, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAdd)
-                .addGap(245, 245, 245))
+                .addGap(244, 244, 244))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,27 +116,66 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
-                    .addComponent(jLabel1))
+                    .addComponent(lblTitle))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(lblOrg)
+                    .addComponent(cmbOrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(btnAdd)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        HotelOrganization.Type type = (HotelOrganization.Type) cmbOrg.getSelectedItem();
+       
+        dir.createHotelOrganization(type);
+        JOptionPane.showMessageDialog(null,"Organization has been added successfully");
+       
+        
+        
+            
+        populateTable();
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<String> cmbOrg;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblOrg;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tblOrg;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblOrg.getModel();
+        
+        model.setRowCount(0);
+        
+        for (HotelOrganization organization : dir.getHotelOrganizationList()){
+            Object[] row = new Object[1];
+         
+            row[0] = organization.getName();
+            
+            model.addRow(row);
+        }
+    }
+
+    private void populateCombo() {
+        cmbOrg.removeAllItems();         
+        cmbOrg.addItem(HotelOrganization.Type.FrontDesk);
+        cmbOrg.addItem(HotelOrganization.Type.HotelManager);    }
 }
