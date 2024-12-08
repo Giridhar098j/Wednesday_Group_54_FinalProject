@@ -4,17 +4,53 @@
  */
 package UI.ServicesAdmin;
 
+import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganization.Type;
+import Business.Organization.HotelOrganizationDirectory;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Atharva
  */
 public class ServicesManageOrganizationJPanel extends javax.swing.JPanel {
+    
+    private HotelOrganizationDirectory directory;
+    private JPanel userProcessContainer;
 
     /**
      * Creates new form ServicesManageOrganizationJPanel
      */
-    public ServicesManageOrganizationJPanel() {
+    public ServicesManageOrganizationJPanel(JPanel userProcessContainer,HotelOrganizationDirectory directory) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.directory = directory;
+        
+        populateTable();
+        populateCombo();
+    }
+    
+    private void populateCombo(){
+        organizationJComboBox.removeAllItems();
+        organizationJComboBox.addItem(Type.Restaurants);
+            
+    }
+
+    private void populateTable(){
+        DefaultTableModel model = (DefaultTableModel) OrganizationsJTable.getModel();
+        
+        model.setRowCount(0);
+        
+        for (HotelOrganization organization : directory.getHotelOrganizationList()){
+            Object[] row = new Object[1];
+         
+            row[0] = organization.getName();
+            
+            model.addRow(row);
+        }
     }
 
     /**
@@ -38,6 +74,11 @@ public class ServicesManageOrganizationJPanel extends javax.swing.JPanel {
         jLabel1.setText("Services Managing Organization");
 
         btnBack.setText("Back<<");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         OrganizationsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -54,9 +95,19 @@ public class ServicesManageOrganizationJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Organization Type:");
 
-        btnAddOrganization.setText("jButton1");
+        btnAddOrganization.setText("Add Organization");
+        btnAddOrganization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddOrganizationActionPerformed(evt);
+            }
+        });
 
         organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                organizationJComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -99,6 +150,30 @@ public class ServicesManageOrganizationJPanel extends javax.swing.JPanel {
                 .addContainerGap(108, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrganizationActionPerformed
+        // TODO add your handling code here:
+        Type type = (Type) organizationJComboBox.getSelectedItem();
+       
+        directory.createHotelOrganization(type);
+        JOptionPane.showMessageDialog(null,"Organization has been added successfully!");
+       
+        
+        
+            
+        populateTable();
+    }//GEN-LAST:event_btnAddOrganizationActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_organizationJComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
