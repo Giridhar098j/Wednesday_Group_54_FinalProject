@@ -4,6 +4,21 @@
  */
 package UI.HotelManagement.FrontDesk;
 
+import UI.HotelManagement.FrontDesk.FrontDeskWorkAreaJPanel;
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.AssaultOrganization;
+import Business.Organization.HouseKeepingOrganization;
+import Business.Organization.HotelOrganization;
+import Business.Organization.TheftOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Complaints_Suggestions_Request;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author pulakantidikshithreddy
@@ -13,9 +28,22 @@ public class FrontDeskComplaintJPanel extends javax.swing.JPanel {
     /**
      * Creates new form FrontDeskComplaintJPanel
      */
-    public FrontDeskComplaintJPanel() {
+    public String message1 = null;
+    private JPanel userProcessContainer;
+    private HotelEnterprise enterprise;
+    private UserAccount userAccount;
+    JTextField messageJTextField = new JTextField();
+    HotelNetwork network;
+    public FrontDeskComplaintJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.network=network;
+         this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        this.userAccount = userAccount;
+        
+        populateComboBox();
     }
+    Complaints_Suggestions_Request request = new Complaints_Suggestions_Request();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,14 +65,35 @@ public class FrontDeskComplaintJPanel extends javax.swing.JPanel {
         jLabel1.setText("Front Desk Complaints Area");
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Message :");
+
+        TxtMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtMessageActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Department :");
 
         DepartmentCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        DepartmentCombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DepartmentComboboxActionPerformed(evt);
+            }
+        });
 
         btnSendComplaint.setText("Send Complaint");
+        btnSendComplaint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendComplaintActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,7 +138,102 @@ public class FrontDeskComplaintJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void DepartmentComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentComboboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DepartmentComboboxActionPerformed
 
+    private void btnSendComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendComplaintActionPerformed
+        // TODO add your handling code here:
+        String message = TxtMessage.getText();
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message);
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + TxtMessage.getText());
+        
+    if(message.isEmpty())
+        
+        {
+            
+            JOptionPane.showMessageDialog(null,"Message field should not be empty");
+        }
+    else
+    {       
+        request.setMessage(message);
+        request.setSender(userAccount);
+        request.setStatus("Sent");
+
+        HotelOrganization org = null;
+        HotelOrganization.Type sel = (HotelOrganization.Type) DepartmentCombobox.getSelectedItem();
+        if(sel.equals(HotelOrganization.Type.Assault))
+        {
+            for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+                if (organization instanceof AssaultOrganization){
+                    org = organization;
+                    break;
+                } }
+            }
+            if (org!=null){
+                org.getStatusQueue().getStatusRequestList().add(request);
+                userAccount.getStatusQueue().getStatusRequestList().add(request);
+            }
+            JOptionPane.showMessageDialog(null,"Your Assault complaint has been sent");
+
+        }
+        
+        else if(sel.equals(HotelOrganization.Type.Theft))
+        {
+             for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+                if (organization instanceof TheftOrganization){
+                    org = organization;
+                    break;
+                } 
+            }
+            }
+            if (org!=null){
+                org.getStatusQueue().getStatusRequestList().add(request);
+                userAccount.getStatusQueue().getStatusRequestList().add(request);
+            }
+        JOptionPane.showMessageDialog(null,"Your Theft complaint has been sent");
+
+        }
+        
+            
+
+                }
+    }//GEN-LAST:event_btnSendComplaintActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        FrontDeskWorkAreaJPanel FDWA = (FrontDeskWorkAreaJPanel) component;
+        FDWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void TxtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtMessageActionPerformed
+        // TODO add your handling code here:
+        if(TxtMessage.getText()!= null)
+        {
+        message1 = TxtMessage.getText();
+        
+        }
+        else JOptionPane.showMessageDialog(null,"Message field should not be empty");
+    }//GEN-LAST:event_TxtMessageActionPerformed
+
+    private void populateComboBox() {
+        
+        DepartmentCombobox.removeAllItems();
+        DepartmentCombobox.addItem(HotelOrganization.Type.Assault);
+        DepartmentCombobox.addItem(HotelOrganization.Type.Theft);
+       
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> DepartmentCombobox;
     private javax.swing.JTextField TxtMessage;
