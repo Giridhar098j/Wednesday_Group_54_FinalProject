@@ -85,6 +85,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Back&lt;&lt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -100,8 +103,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Send Emergency"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmergencyActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="locationtxtfield">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="locationtxtfieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="combo">
       <Properties>
