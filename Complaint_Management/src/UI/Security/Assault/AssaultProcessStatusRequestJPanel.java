@@ -4,6 +4,11 @@
  */
 package UI.Security.Assault;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +18,14 @@ public class AssaultProcessStatusRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AssaultProcessStatusRequestJPanel
      */
-    public AssaultProcessStatusRequestJPanel() {
+    public String message1 = null; 
+    JPanel userProcessContainer;
+    Complaints_Suggestions_Request request;
+    
+    public AssaultProcessStatusRequestJPanel(JPanel userProcessContainer, Complaints_Suggestions_Request request) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.request = request;
     }
 
     /**
@@ -26,16 +37,16 @@ public class AssaultProcessStatusRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
         lblResponse = new javax.swing.JLabel();
         txtResponse = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -70,7 +81,7 @@ public class AssaultProcessStatusRequestJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jButton1)
+                        .addComponent(btnBack)
                         .addGap(72, 72, 72)
                         .addComponent(lblTitle))
                     .addGroup(layout.createSequentialGroup()
@@ -83,7 +94,7 @@ public class AssaultProcessStatusRequestJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnBack)
                     .addComponent(lblTitle))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -99,18 +110,36 @@ public class AssaultProcessStatusRequestJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtResponseActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        AssaultWorkAreaJPanel AWA = (AssaultWorkAreaJPanel) component;
+        AWA.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        String message = txtResponse.getText();
+       
+        if(message.isEmpty())
+            JOptionPane.showMessageDialog(null,"Response field is empty");
+        else {
+            message1 = txtResponse.getText();
+            System.out.println("submitJButtonActionPerformed 'messageJTextField' " + txtResponse);
+            request.setResponse(message1);
+            request.setStatus("Completed");
+            JOptionPane.showMessageDialog(null,"Your response has been sent");
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblResponse;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtResponse;
