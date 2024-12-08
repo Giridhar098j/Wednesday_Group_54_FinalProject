@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.Cleaning.Maintenance;
+package UI.HotelManagement.FrontDesk;
 
+import UI.HotelManagement.FrontDesk.FrontDeskWorkAreaJPanel;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.AssaultOrganization;
@@ -16,24 +17,26 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author pulakantidikshithreddy
  */
-public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
+public class FrontDeskComplaintJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form MaintenanceComplaintJPanel
+     * Creates new form FrontDeskComplaintJPanel
      */
     public String message1 = null;
-     private JPanel userProcessContainer;
+    private JPanel userProcessContainer;
     private HotelEnterprise enterprise;
     private UserAccount userAccount;
-    private HotelNetwork network;
-    public MaintenanceComplaintJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
+    JTextField messageJTextField = new JTextField();
+    HotelNetwork network;
+    public FrontDeskComplaintJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
-        this.network= network;
+        this.network=network;
          this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = userAccount;
@@ -51,13 +54,15 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        TxtMessage = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        combo = new javax.swing.JComboBox<>();
-        txtMessage = new javax.swing.JTextField();
+        DepartmentCombobox = new javax.swing.JComboBox<>();
         btnSendComplaint = new javax.swing.JButton();
+
+        jLabel1.setText("Front Desk Complaints Area");
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -66,22 +71,20 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("HouseKeeping Complaints");
+        jLabel2.setText("Message :");
 
-        jLabel2.setText("Message");
-
-        jLabel3.setText("Department");
-
-        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        combo.addActionListener(new java.awt.event.ActionListener() {
+        TxtMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboActionPerformed(evt);
+                TxtMessageActionPerformed(evt);
             }
         });
 
-        txtMessage.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("Department :");
+
+        DepartmentCombobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        DepartmentCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMessageActionPerformed(evt);
+                DepartmentComboboxActionPerformed(evt);
             }
         });
 
@@ -96,69 +99,54 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(74, 74, 74)
                 .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(264, 264, 264))
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
+                .addGap(198, 198, 198)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(123, 123, 123)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSendComplaint)
-                    .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DepartmentCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(51, 51, 51)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnBack))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                    .addComponent(TxtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(DepartmentCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addComponent(btnSendComplaint)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void populateComboBox() {
-        
-         combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Assault);
-        combo.addItem(HotelOrganization.Type.Theft);
-       
-    }
-    
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        MaintainanceWorkAreaJPanel MWA = (MaintainanceWorkAreaJPanel) component;
-        MWA.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
 
-    }//GEN-LAST:event_btnBackActionPerformed
+    private void DepartmentComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartmentComboboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DepartmentComboboxActionPerformed
 
     private void btnSendComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendComplaintActionPerformed
         // TODO add your handling code here:
-        String message = txtMessage.getText();
+        String message = TxtMessage.getText();
         System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message);
-        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + txtMessage.getText());
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + TxtMessage.getText());
         
     if(message.isEmpty())
         
@@ -168,13 +156,12 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
         }
     else
     {       
-                request.setMessage(message);
-
+        request.setMessage(message);
         request.setSender(userAccount);
         request.setStatus("Sent");
 
         HotelOrganization org = null;
-        HotelOrganization.Type sel = (HotelOrganization.Type) combo.getSelectedItem();
+        HotelOrganization.Type sel = (HotelOrganization.Type) DepartmentCombobox.getSelectedItem();
         if(sel.equals(HotelOrganization.Type.Assault))
         {
             for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
@@ -215,30 +202,45 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
         }
         
             
+
                 }
     }//GEN-LAST:event_btnSendComplaintActionPerformed
 
-    private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        if(txtMessage.getText()!=""){
-        message1 = txtMessage.getText();
-        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message1);
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        FrontDeskWorkAreaJPanel FDWA = (FrontDeskWorkAreaJPanel) component;
+        FDWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void TxtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtMessageActionPerformed
+        // TODO add your handling code here:
+        if(TxtMessage.getText()!= null)
+        {
+        message1 = TxtMessage.getText();
+        
         }
         else JOptionPane.showMessageDialog(null,"Message field should not be empty");
-    }//GEN-LAST:event_txtMessageActionPerformed
+    }//GEN-LAST:event_TxtMessageActionPerformed
 
-    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboActionPerformed
-
-
+    private void populateComboBox() {
+        
+        DepartmentCombobox.removeAllItems();
+        DepartmentCombobox.addItem(HotelOrganization.Type.Assault);
+        DepartmentCombobox.addItem(HotelOrganization.Type.Theft);
+       
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> DepartmentCombobox;
+    private javax.swing.JTextField TxtMessage;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSendComplaint;
-    private javax.swing.JComboBox<String> combo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtMessage;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,17 +4,70 @@
  */
 package UI.Services.Restaurants;
 
+import UI.Services.Restaurants.RestaurantsEmergencyRequestJPanel;
+import UI.Services.Restaurants.RestaurantsComplaintJPanel;
+import Business.EcoSys;
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.RestaurantsOrganization;
+
+import Business.Organization.HotelOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Complaints_Suggestions_Request;
+import Business.WorkQueue.EmergencyRequest;
+import Business.WorkQueue.StatusRequest;
+import static com.db4o.internal.convert.Converter.instance;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pulakantidikshithreddy
  */
 public class RestaurantsWorkArea extends javax.swing.JPanel {
+    
+    private JPanel userProcessContainer;
+    private EcoSys business;
+    private UserAccount userAccount;
+    private RestaurantsOrganization diningOrganization;
+    private HotelEnterprise enterprise;
+    private HotelNetwork network;
 
     /**
      * Creates new form RestaurantsWorkArea
      */
-    public RestaurantsWorkArea() {
+    public RestaurantsWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization,HotelEnterprise enterprise ,EcoSys business,HotelNetwork network) {
         initComponents();
+        this.network=network;
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = account;
+        this.business = business;
+        this.diningOrganization = (RestaurantsOrganization)organization;
+        this.enterprise=enterprise;
+     //   populateTable();
+        populateRequestTable();
+    }
+    
+    public void populateRequestTable(){
+        DefaultTableModel model = (DefaultTableModel) WorkRequestsJTable.getModel();
+        
+        model.setRowCount(0);
+        for (StatusRequest request : userAccount.getStatusQueue().getStatusRequestList()){
+             if (request instanceof Complaints_Suggestions_Request)
+            {
+            Object[] row = new Object[4];
+            row[0] = request;
+           
+            row[1] = request.getReceiver();
+            row[2] = request.getStatus();
+            String result = ((Complaints_Suggestions_Request) request).getResponse();
+            row[3] = result == null ? "Waiting" : result;
+            
+            model.addRow(row);
+        }
+        }
     }
 
     /**
@@ -98,10 +151,16 @@ public class RestaurantsWorkArea extends javax.swing.JPanel {
 
     private void btnAddComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddComplaintActionPerformed
         // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("RestaurantsComplaintJpanel", new RestaurantsComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddComplaintActionPerformed
 
     private void btnEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmergencyActionPerformed
         // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("RestaurantsEmergencyRequestJPanel", new RestaurantsEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnEmergencyActionPerformed
 
 
