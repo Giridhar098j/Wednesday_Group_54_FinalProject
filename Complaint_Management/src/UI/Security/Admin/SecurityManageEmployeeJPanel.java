@@ -4,6 +4,13 @@
  */
 package UI.Security.Admin;
 
+import Business.HotelEmployee.HotelEmployee;
+import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +20,16 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
     /**
      * Creates new form SecurityManageEmployeeJPanel
      */
-    public SecurityManageEmployeeJPanel() {
+    
+    public String message1 = null; 
+    private HotelOrganizationDirectory orgDir;
+    private JPanel userProcessContainer;
+    
+    public SecurityManageEmployeeJPanel(JPanel userProcessContainer,HotelOrganizationDirectory organizationDirectory) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        orgDir = organizationDirectory;
+        populateCmbOrgEmp();
     }
 
     /**
@@ -33,8 +48,8 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         cmbOrgEmp = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
         btnCreateEmp = new javax.swing.JButton();
+        txtName = new javax.swing.JTextField();
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -71,12 +86,6 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
         cmbOrgEmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setText("Name :");
-
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
 
         btnCreateEmp.setText("Create Employee");
         btnCreateEmp.addActionListener(new java.awt.event.ActionListener() {
@@ -139,14 +148,22 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnCreateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateEmpActionPerformed
         // TODO add your handling code here:
+        HotelOrganization org = (HotelOrganization) cmbOrgEmp.getSelectedItem();
+        if (txtName.getText().isEmpty())
+            JOptionPane.showMessageDialog(null, "Name field shouldn't be empty. Enter the Organization name");
+        else{
+            org.getEmployeeDirectory().createHotelEmployee(txtName.getText());
+            populateTable(org);
+            txtName.setText("");
+            JOptionPane.showMessageDialog(null, "!!SUCCESS!! Employee has been created");
+        }
     }//GEN-LAST:event_btnCreateEmpActionPerformed
 
 
@@ -161,4 +178,24 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
+
+    private void populateCmbOrgEmp() {
+        cmbOrgEmp.removeAllItems();
+        for (HotelOrganization org : orgDir.getHotelOrganizationList()){
+            cmbOrgEmp.addItem(org);
+        }
+    }
+    
+     private void populateTable(HotelOrganization organization){
+        DefaultTableModel model = (DefaultTableModel) OrganizationsJTable.getModel();
+        
+        model.setRowCount(0);
+        
+        for (HotelEmployee employee : organization.getEmployeeDirectory().getHotelEmployeeList()){
+            Object[] row = new Object[1];
+            
+            row[0] = employee.getName();
+            model.addRow(row);
+        }
+    }
 }
