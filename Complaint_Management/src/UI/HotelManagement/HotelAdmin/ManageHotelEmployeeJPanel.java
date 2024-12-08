@@ -4,6 +4,13 @@
  */
 package UI.HotelManagement.HotelAdmin;
 
+import Business.HotelEmployee.HotelEmployee;
+import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +20,16 @@ public class ManageHotelEmployeeJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageHotelEmployeeJPanel
      */
-    public ManageHotelEmployeeJPanel() {
+    
+    public String message1 = null; 
+    private HotelOrganizationDirectory orgDir;
+    private JPanel userProcessContainer;
+    
+    public ManageHotelEmployeeJPanel(JPanel userProcessContainer,HotelOrganizationDirectory orgDir) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.orgDir = orgDir;
+        populateOrganizationEmpComboBox();
     }
 
     /**
@@ -37,6 +52,11 @@ public class ManageHotelEmployeeJPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         lblTitle.setText("Hotel Employee Management");
 
@@ -131,12 +151,49 @@ public class ManageHotelEmployeeJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        HotelOrganization organization = (HotelOrganization) cmbOrgEmp.getSelectedItem();
+        if(txtName.getText().isEmpty())
+            JOptionPane.showMessageDialog(null," Enter the Organisation Name ");
+        else 
+        {
+            organization.getEmployeeDirectory().createHotelEmployee(txtName.getText());
+            populateTable(organization);
+            txtName.setText("");
+            JOptionPane.showMessageDialog(null,"Employee has been created sucessfully");
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void populateTable(HotelOrganization organization){
+        DefaultTableModel model = (DefaultTableModel) OrganizationsJTable.getModel();
+        
+        model.setRowCount(0);
+        
+        for (HotelEmployee employee : organization.getEmployeeDirectory().getHotelEmployeeList()){
+            Object[] row = new Object[1];
+          
+            row[0] = employee.getName();
+            model.addRow(row);
+        }
+    }
+    
+    public void populateOrganizationEmpComboBox(){
+        cmbOrgEmp.removeAllItems();
+        
+        for (HotelOrganization org : orgDir.getHotelOrganizationList()){
+            cmbOrgEmp.addItem(org);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
