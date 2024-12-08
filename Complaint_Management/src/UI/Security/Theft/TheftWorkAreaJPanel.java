@@ -7,6 +7,7 @@ package UI.Security.Theft;
 import Business.EcoSystem;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -177,6 +178,7 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
+        populateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
@@ -189,11 +191,11 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
         
         StatusRequest request = (StatusRequest)tblWorkReq.getValueAt(selectedRow, 0);
         if(request.getReceiver()!=null)
-            JOptionPane.showMessageDialog(null,"Request has been assigned already ");
+            JOptionPane.showMessageDialog(null,"Request has already been assigned");
         else {
             if(request.getStatus()=="Completed")
             {
-                JOptionPane.showMessageDialog(null,"Request has been completed already");
+                JOptionPane.showMessageDialog(null,"Request has already been proccessed");
             }
             else
                 request.setReceiver(userAccount);
@@ -204,10 +206,41 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnProccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProccessActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblWorkReq.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        Complaints_Suggestions_Request request = (Complaints_Suggestions_Request)tblWorkReq.getValueAt(selectedRow, 0);
+        
+        if(request.getStatus()=="Completed")    
+            JOptionPane.showMessageDialog(null,"Request has already been proccessed");
+        else if(request.getStatus()=="Sent"   || request.getStatus()==null)
+            JOptionPane.showMessageDialog(null,"Request has to be assigned first");
+        else { 
+            request.setStatus("Processing");
+            TheftProcessStatusRequestJPanel processWorkRequestJPanel = new TheftProcessStatusRequestJPanel(userProcessContainer, request);
+            userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
     }//GEN-LAST:event_btnProccessActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblEmrgcy.getSelectedRow();
+
+        if (selectedRow < 0){
+            return;
+        }
+
+        EmergencyRequest request = (EmergencyRequest)tblEmrgcy.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        
+        ValidateMail valMail = new ValidateMail();
+        valMail.sendAttachment();
+        JOptionPane.showMessageDialog(this,"Mail has been sent");
     }//GEN-LAST:event_btnSendActionPerformed
 
 
