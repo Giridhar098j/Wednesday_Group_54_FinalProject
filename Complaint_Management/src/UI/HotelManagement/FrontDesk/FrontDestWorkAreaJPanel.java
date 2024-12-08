@@ -4,18 +4,64 @@
  */
 package UI.HotelManagement.FrontDesk;
 
+import Business.EcoSys;
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.HotelOrganization;
+import Business.Organization.FrontDeskOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Complaints_Suggestions_Request;
+import Business.WorkQueue.StatusRequest;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pulakantidikshithreddy
  */
 public class FrontDestWorkAreaJPanel extends javax.swing.JPanel {
+    
+    private JPanel userProcessContainer;
+    private EcoSys business;
+    private UserAccount userAccount;
+    private FrontDeskOrganization facultyOrganization;
+    private HotelEnterprise enterprise;
+    private HotelNetwork network;
 
     /**
      * Creates new form FrontDestWorkAreaJPanel
      */
-    public FrontDestWorkAreaJPanel() {
+    public FrontDestWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
         initComponents();
+        this.enterprise=enterprise;
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = account;
+        this.business = business;
+        this.facultyOrganization = (FrontDeskOrganization)organization;
+        this.network=network;
+       
+        populateRequestTable();
     }
+    
+    public void populateRequestTable(){
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable1.getModel();
+        
+        model.setRowCount(0);
+        for (StatusRequest request : userAccount.getStatusQueue().getStatusRequestList()){
+            if (request instanceof Complaints_Suggestions_Request){
+            Object[] row = new Object[4];
+            row[0] = request.getMessage();
+           
+            row[1] = request.getReceiver();
+            row[2] = request.getStatus();
+            String result = ((Complaints_Suggestions_Request) request).getResponse();
+            row[3] = result == null ? "Waiting" : result;
+            
+            model.addRow(row);
+        }
+    }}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +101,11 @@ public class FrontDestWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnEmergency.setText("Emergency!!");
+        btnEmergency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmergencyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -92,7 +143,17 @@ public class FrontDestWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnAddComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddComplaintActionPerformed
         // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("FrontDeskComplaintJPanel", new FrontDeskComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddComplaintActionPerformed
+
+    private void btnEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmergencyActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("FrontDeskemergencyrequestJpanel", new FrontDeskEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnEmergencyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
