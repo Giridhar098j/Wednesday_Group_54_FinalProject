@@ -4,17 +4,30 @@
  */
 package UI.ServicesAdmin;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Atharva
  */
 public class ServicesAdminWorkAreaJPanel extends javax.swing.JPanel {
+    
+    JPanel userProcessContainer;
+    HotelNetwork network;
+    HotelEnterprise enterprise;
 
     /**
      * Creates new form ServicesWorkAreaJPanel
      */
-    public ServicesAdminWorkAreaJPanel() {
+    public ServicesAdminWorkAreaJPanel(JPanel userProcessContainer, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.network=network;
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        valueLbl.setText(enterprise.getName());
     }
 
     /**
@@ -46,8 +59,18 @@ public class ServicesAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnManagingEmployee.setText("Managing Employees");
+        btnManagingEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManagingEmployeeActionPerformed(evt);
+            }
+        });
 
         btnManagingUsers.setText("Managing Users");
+        btnManagingUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManagingUsersActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,7 +114,29 @@ public class ServicesAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageOrganizationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationsActionPerformed
         // TODO add your handling code here:
+        ServicesManageOrganizationJPanel manageOrganizationJPanel = new ServicesManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        userProcessContainer.add("manageOrganizationJPanel", manageOrganizationJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageOrganizationsActionPerformed
+
+    private void btnManagingUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagingUsersActionPerformed
+        // TODO add your handling code here:
+        ServicesManageUserAccountJPanel MUAJP = new ServicesManageUserAccountJPanel(userProcessContainer, enterprise,network);
+        userProcessContainer.add("ManageUserAccountJPanel", MUAJP);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnManagingUsersActionPerformed
+
+    private void btnManagingEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagingEmployeeActionPerformed
+        // TODO add your handling code here:
+        ServicesManageEmployeeJPanel manageEmployeeJPanel = new ServicesManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnManagingEmployeeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
