@@ -4,6 +4,11 @@
  */
 package UI.Security.Theft;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +18,14 @@ public class TheftProccessStatusRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form TheftProccessStatusRequestJPanel
      */
-    public TheftProccessStatusRequestJPanel() {
+    public String message1 = null; 
+    JPanel userProcessContainer;
+    Complaints_Suggestions_Request request;
+    
+    public TheftProccessStatusRequestJPanel(JPanel container, Complaints_Suggestions_Request request) {
         initComponents();
+        userProcessContainer = container;
+        this.request = request;
     }
 
     /**
@@ -91,10 +102,29 @@ public class TheftProccessStatusRequestJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        TheftWorkAreaJPanel TWA = (TheftWorkAreaJPanel) component;
+        TWA.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        String message = txtResponse.getText();
+       
+        if(message.isEmpty())
+            JOptionPane.showMessageDialog(null,"Response field is empty");
+        else
+        {
+            message1 = txtResponse.getText();
+            System.out.println("submitJButtonActionPerformed 'messageJTextField' " + message1);
+            request.setResponse(message1);
+            request.setStatus("Completed");
+            JOptionPane.showMessageDialog(null,"Your response has been sent!");
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
 

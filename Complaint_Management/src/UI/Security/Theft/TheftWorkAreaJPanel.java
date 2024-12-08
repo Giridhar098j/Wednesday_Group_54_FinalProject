@@ -257,7 +257,7 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblWorkReq;
     // End of variables declaration//GEN-END:variables
 
-    private void populateTable() {
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel)tblWorkReq.getModel();
         
         model.setRowCount(0);
@@ -275,7 +275,7 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
         }
     }
 
-    private void populateEmergencyTable() {
+    public void populateEmergencyTable() {
         DefaultTableModel model = (DefaultTableModel)tblEmrgcy.getModel();
         
         model.setRowCount(0);
