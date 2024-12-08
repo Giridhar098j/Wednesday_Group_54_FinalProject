@@ -4,6 +4,13 @@
  */
 package UI.Security.Theft;
 
+import Business.EcoSystem;
+import Business.Network.HotelNetwork;
+import Business.Organization.HotelOrganization;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +20,23 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form TheftWorkAreaJPanel
      */
-    public TheftWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private TheftOrganization theftOrganization;
+    private HotelEnterprise enterprise;
+    HotelNetwork network;
+    
+    public TheftWorkAreaJPanel(JPanel container, UserAccount acc, HotelOrganization org, HotelEnterprise enterprise, EcoSystem business, HotelNetwork network) {
         initComponents();
+        this.network=network;
+        userProcessContainer = container;
+        userAccount = acc;
+        this.business = business;
+        this.theftOrganization = (TheftOrganization)org;
+        this.enterprise=enterprise;
+        populateTable();
+        populateEmergencyTable();
     }
 
     /**
@@ -159,6 +181,25 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblWorkReq.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        StatusRequest request = (StatusRequest)tblWorkReq.getValueAt(selectedRow, 0);
+        if(request.getReceiver()!=null)
+            JOptionPane.showMessageDialog(null,"Request has been assigned already ");
+        else {
+            if(request.getStatus()=="Completed")
+            {
+                JOptionPane.showMessageDialog(null,"Request has been completed already");
+            }
+            else
+                request.setReceiver(userAccount);
+            request.setStatus("Pending");
+        }
+        populateTable();
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnProccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProccessActionPerformed
@@ -182,4 +223,38 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblEmrgcy;
     private javax.swing.JTable tblWorkReq;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel)tblWorkReq.getModel();
+        
+        model.setRowCount(0);
+        
+        for(StatusRequest request : theftOrganization.getStatusQueue().getStatusRequestList()){
+            if(request instanceof Complaints_Suggestions_Request) {
+            Object[] row = new Object[4];
+            row[0] = request;
+            row[1] = request.getSender().getEmployee().getName();
+            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[3] = request.getStatus();
+            
+            model.addRow(row);
+            }
+        }
+    }
+
+    private void populateEmergencyTable() {
+        DefaultTableModel model = (DefaultTableModel)tblEmrgcy.getModel();
+        
+        model.setRowCount(0);
+        
+        for(StatusRequest request : theftOrganization.getStatusQueue().getStatusRequestList()) {
+            if (request instanceof EmergencyRequest) {
+                EmergencyRequest s = (EmergencyRequest) request;
+                Object[] row = new Object[1];
+                row[0] = s;
+
+                model.addRow(row);
+            }
+        }
+    }
 }
