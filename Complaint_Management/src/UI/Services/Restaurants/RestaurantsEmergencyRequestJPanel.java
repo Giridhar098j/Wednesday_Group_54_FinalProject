@@ -4,6 +4,21 @@
  */
 package UI.Services.Restaurants;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.AssaultOrganization;
+import Business.Organization.RestaurantsOrganization;
+import Business.Organization.HotelManagerOrganization;
+import Business.Organization.HouseKeepingOrganization;
+import Business.Organization.HotelOrganization;
+import Business.Organization.TheftOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.EmergencyRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author pulakantidikshithreddy
@@ -13,8 +28,21 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form RestaurantsEmergencyRequestJPanel
      */
-    public RestaurantsEmergencyRequestJPanel() {
+    public String message1 = null;
+    private JPanel userProcessContainer;
+    private HotelEnterprise enterprise;
+    private UserAccount userAccount; 
+    private HotelNetwork network;
+    public RestaurantsEmergencyRequestJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        this.userAccount = userAccount;
+        this.network=network;
+     populateComboBox();
+    }
+
+    EmergencyRequest  erequest = new EmergencyRequest();
     }
 
     /**
@@ -56,6 +84,11 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
         });
 
         btnSendEmergency.setText("Send Emergency");
+        btnSendEmergency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendEmergencyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,12 +136,91 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        RestaurantsWorkAreaJPanel RWA = (RestaurantsWorkAreaJPanel) component;
+        RWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void locationfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationfieldActionPerformed
         // TODO add your handling code here:
+        if(locationfiield.getText()!=""){
+        message1 = locationfiield.getText();
+        
+        }
+        else JOptionPane.showMessageDialog(null,"Location field is empty");
     }//GEN-LAST:event_locationfieldActionPerformed
 
+    private void btnSendEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmergencyActionPerformed
+        // TODO add your handling code here:
+String location = locationfiield.getText();
+        erequest.setLocation(location);
+        erequest.setEmergencytype((HotelOrganization.Type) combo.getSelectedItem());
+        erequest.setEmail(userAccount.getEmail());
+         HotelOrganization org = null;
+         HotelOrganization.Type sel = (HotelOrganization.Type) combo.getSelectedItem();
+      if(location.isEmpty())
+      {
+        
+            JOptionPane.showMessageDialog(null,"Location field is empty");     
+    }
+        
+        else
+        {
+            
+            
+            if(sel.equals(HotelOrganization.Type.Theft))
+        {   
+        for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+            if (organization instanceof TheftOrganization){
+                org = organization;
+                break;
+            } 
+                  }
+        }
+        if (org!=null){
+            org.getStatusQueue().getStatusRequestList().add(erequest);
+            userAccount.getStatusQueue().getStatusRequestList().add(erequest);
+        }
+        }
+          else if(sel.equals(HotelOrganization.Type.Assault))
+        {
+        
+        for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+            if (organization instanceof AssaultOrganization){
+                org = organization;
+                break;
+            } }
+        }
+         if (org!=null){
+            org.getStatusQueue().getStatusRequestList().add(erequest);
+            userAccount.getStatusQueue().getStatusRequestList().add(erequest);
+        }
+        }
+        
+          JOptionPane.showMessageDialog(null,"Your emergency request has been sent! An officer will notify you shortly");
+        
+        }
+    }//GEN-LAST:event_btnSendEmergencyActionPerformed
+
+    private void populateComboBox() {
+        
+         combo.removeAllItems();
+        combo.addItem(HotelOrganization.Type.Theft);
+        combo.addItem(HotelOrganization.Type.Assault);
+       
+       
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -120,3 +232,6 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel locationlbl;
     // End of variables declaration//GEN-END:variables
 }
+
+
+
