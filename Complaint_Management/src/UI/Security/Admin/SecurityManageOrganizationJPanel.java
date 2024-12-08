@@ -54,7 +54,7 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblTitle.setText("Security Managing Organization");
+        lblTitle.setText("Security Organization Management");
 
         tblOrganization.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
