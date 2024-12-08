@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.Cleaning.Maintenance;
+package UI.HotelManagement.FrontDesk;
 
 import Business.EcoSys;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
-import Business.Organization.MaintainanceOrganization;
 import Business.Organization.HotelOrganization;
+import Business.Organization.FrontDeskOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.Complaints_Suggestions_Request;
 import Business.WorkQueue.StatusRequest;
@@ -21,32 +21,32 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author pulakantidikshithreddy
  */
-public class MaintenanceWorkArea extends javax.swing.JPanel {
+public class FrontDestWorkAreaJPanel extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
     private EcoSys business;
     private UserAccount userAccount;
-    private MaintainanceOrganization MaintainanceOrganization;
+    private FrontDeskOrganization facultyOrganization;
     private HotelEnterprise enterprise;
     private HotelNetwork network;
 
     /**
-     * Creates new form MaintenanceWorkArea
+     * Creates new form FrontDestWorkAreaJPanel
      */
-    public MaintenanceWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
+    public FrontDestWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
         initComponents();
         this.enterprise=enterprise;
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.business = business;
-        this.MaintainanceOrganization = (MaintainanceOrganization)organization;
+        this.facultyOrganization = (FrontDeskOrganization)organization;
         this.network=network;
-
+       
         populateRequestTable();
     }
     
     public void populateRequestTable(){
-        DefaultTableModel model = (DefaultTableModel) WorkRequestsJTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable1.getModel();
         
         model.setRowCount(0);
         for (StatusRequest request : userAccount.getStatusQueue().getStatusRequestList()){
@@ -72,15 +72,13 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        WorkRequestsJTable = new javax.swing.JTable();
+        workRequestJTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         btnAddComplaint = new javax.swing.JButton();
         btnEmergency = new javax.swing.JButton();
 
-        jLabel1.setText("Maintainance Oraganization Work Area");
-
-        WorkRequestsJTable.setModel(new javax.swing.table.DefaultTableModel(
+        workRequestJTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -91,7 +89,9 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
                 "Message", "Receiver", "Status", "Response"
             }
         ));
-        jScrollPane1.setViewportView(WorkRequestsJTable);
+        jScrollPane1.setViewportView(workRequestJTable1);
+
+        jLabel1.setText("Front Desk Work Area");
 
         btnAddComplaint.setText("Add Complaint");
         btnAddComplaint.addActionListener(new java.awt.event.ActionListener() {
@@ -112,55 +112,55 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(126, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(289, 289, 289))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddComplaint)
-                                .addGap(34, 34, 34)
+                                .addGap(56, 56, 56)
                                 .addComponent(btnEmergency))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(109, 109, 109))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
+                .addComponent(jLabel1)
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddComplaint)
                     .addComponent(btnEmergency))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddComplaintActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("MaintainanceComplaintJPanel", new MaintainanceComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
+        userProcessContainer.add("FrontDeskComplaintJPanel", new FrontDeskComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddComplaintActionPerformed
 
     private void btnEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmergencyActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("MaintainanceEmergencyRequestJpanel", new MaintainanceEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
+        userProcessContainer.add("FrontDeskemergencyrequestJpanel", new FrontDeskEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnEmergencyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable WorkRequestsJTable;
     private javax.swing.JButton btnAddComplaint;
     private javax.swing.JButton btnEmergency;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable workRequestJTable1;
     // End of variables declaration//GEN-END:variables
 }

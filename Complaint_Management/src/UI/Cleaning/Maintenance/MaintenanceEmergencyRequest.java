@@ -4,6 +4,19 @@
  */
 package UI.Cleaning.Maintenance;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.AssaultOrganization;
+import Business.Organization.HouseKeepingOrganization;
+import Business.Organization.HotelOrganization;
+import Business.Organization.TheftOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.EmergencyRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author pulakantidikshithreddy
@@ -13,9 +26,19 @@ public class MaintenanceEmergencyRequest extends javax.swing.JPanel {
     /**
      * Creates new form MaintenanceEmergencyRequest
      */
-    public MaintenanceEmergencyRequest() {
+    private JPanel userProcessContainer;
+    private HotelEnterprise enterprise;
+    private UserAccount userAccount; 
+    private HotelNetwork network;
+    public MaintenanceEmergencyRequest(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.network=network;
+       this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        this.userAccount = userAccount;
+     populateComboBox();
     }
+    EmergencyRequest  erequest = new EmergencyRequest();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +79,11 @@ public class MaintenanceEmergencyRequest extends javax.swing.JPanel {
         });
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -106,8 +134,80 @@ public class MaintenanceEmergencyRequest extends javax.swing.JPanel {
 
     private void btnSendEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmergencyActionPerformed
         // TODO add your handling code here:
+        String location = locationtxtfield.getText();
+        erequest.setLocation(location);
+        erequest.setEmergencytype((HotelOrganization.Type) combo.getSelectedItem());
+        erequest.setEmail(userAccount.getEmail());
+         HotelOrganization org = null;
+         HotelOrganization.Type sel = (HotelOrganization.Type) combo.getSelectedItem();
+      if(location.isEmpty())
+      {
+        
+            JOptionPane.showMessageDialog(null,"Location field should not be empty");     
+    }
+        
+        else
+        {
+            
+            
+            if(sel.equals(HotelOrganization.Type.Theft))
+        {   
+        for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+            if (organization instanceof TheftOrganization){
+                org = organization;
+                break;
+            } 
+                  }
+        }
+        if (org!=null){
+            org.getStatusQueue().getStatusRequestList().add(erequest);
+            userAccount.getStatusQueue().getStatusRequestList().add(erequest);
+        }
+        }
+          else if(sel.equals(HotelOrganization.Type.Assault))
+        {
+        
+        for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+            if (organization instanceof AssaultOrganization){
+                org = organization;
+                break;
+            } }
+        }
+        
+        if (org!=null){
+            org.getStatusQueue().getStatusRequestList().add(erequest);
+            userAccount.getStatusQueue().getStatusRequestList().add(erequest);
+        }
+        }
+        
+          JOptionPane.showMessageDialog(null,"Your emergency request has been sent! An officer will notify you shortly");
+        
+        }
     }//GEN-LAST:event_btnSendEmergencyActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        MaintainanceWorkAreaJPanel MWA = (MaintainanceWorkAreaJPanel) component;
+        MWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+    
+    private void populateComboBox() {
+         combo.removeAllItems();
+        combo.addItem(HotelOrganization.Type.Theft);
+        combo.addItem(HotelOrganization.Type.Assault);
+     
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

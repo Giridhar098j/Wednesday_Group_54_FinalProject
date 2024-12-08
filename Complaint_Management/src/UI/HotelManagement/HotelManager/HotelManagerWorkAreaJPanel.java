@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.Cleaning.Maintenance;
+package UI.HotelManagement.HotelManager;
 
 import Business.EcoSys;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
-import Business.Organization.MaintainanceOrganization;
+import Business.Organization.HotelManagerOrganization;
 import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.Complaints_Suggestions_Request;
@@ -19,34 +19,34 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author pulakantidikshithreddy
+ * @author Atharva
  */
-public class MaintenanceWorkArea extends javax.swing.JPanel {
+public class HotelManagerWorkAreaJPanel extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
     private EcoSys business;
     private UserAccount userAccount;
-    private MaintainanceOrganization MaintainanceOrganization;
+    private HotelManagerOrganization facultyOrganization;
     private HotelEnterprise enterprise;
     private HotelNetwork network;
 
     /**
-     * Creates new form MaintenanceWorkArea
+     * Creates new form HotelManagerWorkAreaJPanel
      */
-    public MaintenanceWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
+    public HotelManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
         initComponents();
         this.enterprise=enterprise;
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.business = business;
-        this.MaintainanceOrganization = (MaintainanceOrganization)organization;
+        this.facultyOrganization = (HotelManagerOrganization)organization;
         this.network=network;
-
+       
         populateRequestTable();
     }
     
-    public void populateRequestTable(){
-        DefaultTableModel model = (DefaultTableModel) WorkRequestsJTable.getModel();
+     public void populateRequestTable(){
+        DefaultTableModel model = (DefaultTableModel) WorkRequestJTable.getModel();
         
         model.setRowCount(0);
         for (StatusRequest request : userAccount.getStatusQueue().getStatusRequestList()){
@@ -74,13 +74,14 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        WorkRequestsJTable = new javax.swing.JTable();
+        WorkRequestJTable = new javax.swing.JTable();
         btnAddComplaint = new javax.swing.JButton();
         btnEmergency = new javax.swing.JButton();
 
-        jLabel1.setText("Maintainance Oraganization Work Area");
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel1.setText("Hotel Manager Work Area");
 
-        WorkRequestsJTable.setModel(new javax.swing.table.DefaultTableModel(
+        WorkRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -91,7 +92,7 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
                 "Message", "Receiver", "Status", "Response"
             }
         ));
-        jScrollPane1.setViewportView(WorkRequestsJTable);
+        jScrollPane1.setViewportView(WorkRequestJTable);
 
         btnAddComplaint.setText("Add Complaint");
         btnAddComplaint.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +101,7 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
             }
         });
 
-        btnEmergency.setText("Emergency!!");
+        btnEmergency.setText("Emergency");
         btnEmergency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmergencyActionPerformed(evt);
@@ -114,50 +115,50 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(jLabel1))
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
+                        .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddComplaint)
-                                .addGap(34, 34, 34)
-                                .addComponent(btnEmergency))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                .addGap(36, 36, 36)
+                                .addComponent(btnEmergency, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddComplaint)
                     .addComponent(btnEmergency))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddComplaintActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("MaintainanceComplaintJPanel", new MaintainanceComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
+         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("HotelManagerComplaintJPanel", new HotelManagerComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddComplaintActionPerformed
 
     private void btnEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmergencyActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("MaintainanceEmergencyRequestJpanel", new MaintainanceEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
+        userProcessContainer.add("HotelManageremergencyrequestJpanel", new HotelManagerEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnEmergencyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable WorkRequestsJTable;
+    private javax.swing.JTable WorkRequestJTable;
     private javax.swing.JButton btnAddComplaint;
     private javax.swing.JButton btnEmergency;
     private javax.swing.JLabel jLabel1;

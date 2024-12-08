@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.Cleaning.Maintenance;
+package UI.HotelManagement.HotelManager;
 
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
@@ -19,21 +19,21 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author pulakantidikshithreddy
+ * @author Atharva
  */
-public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
+public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form MaintenanceComplaintJPanel
+     * Creates new form HotelManagerComplaintJPanel
      */
     public String message1 = null;
-     private JPanel userProcessContainer;
+    private JPanel userProcessContainer;
     private HotelEnterprise enterprise;
     private UserAccount userAccount;
-    private HotelNetwork network;
-    public MaintenanceComplaintJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
+    HotelNetwork network;
+    public HotelManagerComplaintJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
-        this.network= network;
+         this.network=network;
          this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = userAccount;
@@ -51,31 +51,32 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        combo = new javax.swing.JComboBox<>();
-        txtMessage = new javax.swing.JTextField();
         btnSendComplaint = new javax.swing.JButton();
+        txtMessage = new javax.swing.JTextField();
+        combo = new javax.swing.JComboBox<>();
 
-        btnBack.setText("Back");
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel1.setText("Hotel Manager Emergency Request ");
+
+        btnBack.setText("Back<<");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("HouseKeeping Complaints");
+        jLabel2.setText("Message:");
 
-        jLabel2.setText("Message");
+        jLabel3.setText("Department:");
 
-        jLabel3.setText("Department");
-
-        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        combo.addActionListener(new java.awt.event.ActionListener() {
+        btnSendComplaint.setText("Send Complaint");
+        btnSendComplaint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboActionPerformed(evt);
+                btnSendComplaintActionPerformed(evt);
             }
         });
 
@@ -85,87 +86,67 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSendComplaint.setText("Send Complaint");
-        btnSendComplaint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSendComplaintActionPerformed(evt);
-            }
-        });
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(123, 123, 123)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSendComplaint)
-                    .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(btnSendComplaint)))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(51, 51, 51)
+                .addGap(59, 59, 59)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnBack))
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(30, 30, 30)
                 .addComponent(btnSendComplaint)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(381, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void populateComboBox() {
-        
-         combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Assault);
-        combo.addItem(HotelOrganization.Type.Theft);
-       
-    }
-    
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        MaintainanceWorkAreaJPanel MWA = (MaintainanceWorkAreaJPanel) component;
-        MWA.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-
-    }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSendComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendComplaintActionPerformed
         // TODO add your handling code here:
         String message = txtMessage.getText();
-        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message);
+        
         System.out.println("sendComplaintActionPerformed 'messageJTextField' " + txtMessage.getText());
         
     if(message.isEmpty())
-        
         {
-            
+           System.out.println("sendComplaintActionPerformed 'messageJTextField' " + txtMessage.getText());
             JOptionPane.showMessageDialog(null,"Message field should not be empty");
         }
+    
     else
     {       
                 request.setMessage(message);
@@ -190,7 +171,7 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
                 org.getStatusQueue().getStatusRequestList().add(request);
                 userAccount.getStatusQueue().getStatusRequestList().add(request);
             }
-            JOptionPane.showMessageDialog(null,"Your Assault complaint has been sent");
+            JOptionPane.showMessageDialog(null,"Your Assault complaint has been sent successfully");
 
         }
         
@@ -210,13 +191,25 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
                 org.getStatusQueue().getStatusRequestList().add(request);
                 userAccount.getStatusQueue().getStatusRequestList().add(request);
             }
-        JOptionPane.showMessageDialog(null,"Your Theft complaint has been sent");
+        JOptionPane.showMessageDialog(null,"Your Theft complaint has been sent successfully");
 
         }
         
             
+
                 }
     }//GEN-LAST:event_btnSendComplaintActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        HotelManagerWorkAreaJPanel HMWA = (HotelManagerWorkAreaJPanel) component;
+        HMWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
         // TODO add your handling code here:
@@ -226,10 +219,6 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
         }
         else JOptionPane.showMessageDialog(null,"Message field should not be empty");
     }//GEN-LAST:event_txtMessageActionPerformed
-
-    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -241,4 +230,11 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtMessage;
     // End of variables declaration//GEN-END:variables
+
+    private void populateComboBox() {
+         combo.removeAllItems();
+        combo.addItem(HotelOrganization.Type.Assault);
+        combo.addItem(HotelOrganization.Type.Theft);
+       
+    }
 }

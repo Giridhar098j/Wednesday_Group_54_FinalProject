@@ -2,13 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package UI.Services.Restaurants;
+package UI.HotelManagement.FrontDesk;
 
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.AssaultOrganization;
-import Business.Organization.RestaurantsOrganization;
-import Business.Organization.HotelManagerOrganization;
 import Business.Organization.HouseKeepingOrganization;
 import Business.Organization.HotelOrganization;
 import Business.Organization.TheftOrganization;
@@ -23,27 +21,26 @@ import javax.swing.JPanel;
  *
  * @author pulakantidikshithreddy
  */
-public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
+public class FrontDeskEmergencyRequestJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form RestaurantsEmergencyRequestJPanel
+     * Creates new form FrontDeskEmergencyRequestJPanel
      */
     public String message1 = null;
     private JPanel userProcessContainer;
     private HotelEnterprise enterprise;
     private UserAccount userAccount; 
     private HotelNetwork network;
-    public RestaurantsEmergencyRequestJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
+    public FrontDeskEmergencyRequestJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         this.userAccount = userAccount;
         this.network=network;
-     populateComboBox();
+        populateComboBox();
     }
-
+    
     EmergencyRequest  erequest = new EmergencyRequest();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,38 +52,37 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
+        backJButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         locationlbl = new javax.swing.JLabel();
         combo = new javax.swing.JComboBox<>();
-        locationfield = new javax.swing.JTextField();
-        btnSendEmergency = new javax.swing.JButton();
+        locationtxtfield = new javax.swing.JTextField();
+        btnsendemergency = new javax.swing.JButton();
 
-        jLabel1.setText("Security Emergency Requests");
+        jLabel1.setText("Front Desk Emergency Requests");
 
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        backJButton.setText("Back");
+        backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+                backJButtonActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Emergency Type :");
 
-        locationlbl.setText("Location:");
+        locationlbl.setText("Location :");
 
         combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        locationfield.addActionListener(new java.awt.event.ActionListener() {
+        combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                locationfieldActionPerformed(evt);
+                comboActionPerformed(evt);
             }
         });
 
-        btnSendEmergency.setText("Send Emergency");
-        btnSendEmergency.addActionListener(new java.awt.event.ActionListener() {
+        btnsendemergency.setText("Send Emergency Request");
+        btnsendemergency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSendEmergencyActionPerformed(evt);
+                btnsendemergencyActionPerformed(evt);
             }
         });
 
@@ -94,70 +90,59 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(backJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(282, 282, 282))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(btnBack)
-                        .addGap(112, 112, 112)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(locationlbl))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(locationfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSendEmergency))))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addGap(164, 164, 164)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(locationlbl))
+                .addGap(78, 78, 78)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnsendemergency)
+                    .addComponent(locationtxtfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(btnBack))
-                .addGap(50, 50, 50)
+                    .addComponent(backJButton))
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(locationlbl)
-                    .addComponent(locationfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(btnSendEmergency)
-                .addContainerGap(321, Short.MAX_VALUE))
+                    .addComponent(locationtxtfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(btnsendemergency)
+                .addContainerGap(270, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        RestaurantsWorkAreaJPanel RWA = (RestaurantsWorkAreaJPanel) component;
-        RWA.populateRequestTable();
+        FrontDeskWorkAreaJPanel FDWA = (FrontDeskWorkAreaJPanel) component;
+        FDWA.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backJButtonActionPerformed
 
-    }//GEN-LAST:event_btnBackActionPerformed
-
-    private void locationfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationfieldActionPerformed
+    private void btnsendemergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsendemergencyActionPerformed
         // TODO add your handling code here:
-        if(locationfiield.getText()!=""){
-        message1 = locationfiield.getText();
-        
-        }
-        else JOptionPane.showMessageDialog(null,"Location field is empty");
-    }//GEN-LAST:event_locationfieldActionPerformed
-
-    private void btnSendEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmergencyActionPerformed
-        // TODO add your handling code here:
-String location = locationfiield.getText();
+        String location = locationtxtfield.getText();
         erequest.setLocation(location);
         erequest.setEmergencytype((HotelOrganization.Type) combo.getSelectedItem());
         erequest.setEmail(userAccount.getEmail());
@@ -165,8 +150,8 @@ String location = locationfiield.getText();
          HotelOrganization.Type sel = (HotelOrganization.Type) combo.getSelectedItem();
       if(location.isEmpty())
       {
-        
-            JOptionPane.showMessageDialog(null,"Location field is empty");     
+       
+            JOptionPane.showMessageDialog(null,"Location field should not be empty");     
     }
         
         else
@@ -202,7 +187,8 @@ String location = locationfiield.getText();
                 break;
             } }
         }
-         if (org!=null){
+        
+        if (org!=null){
             org.getStatusQueue().getStatusRequestList().add(erequest);
             userAccount.getStatusQueue().getStatusRequestList().add(erequest);
         }
@@ -210,28 +196,40 @@ String location = locationfiield.getText();
         
           JOptionPane.showMessageDialog(null,"Your emergency request has been sent! An officer will notify you shortly");
         
+            
         }
-    }//GEN-LAST:event_btnSendEmergencyActionPerformed
+    }                                                
 
-    private void populateComboBox() {
+    private void locationtxtfieldActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        // TODO add your handling code here:
+        
+        if(locationtxtfield.getText()!=""){
+        message1 = locationtxtfield.getText();
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message1);
+        }
+        else JOptionPane.showMessageDialog(null,"Location field should not be empty");
+        
+    }//GEN-LAST:event_btnsendemergencyActionPerformed
+
+    private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboActionPerformed
+private void populateComboBox() {
         
          combo.removeAllItems();
         combo.addItem(HotelOrganization.Type.Theft);
         combo.addItem(HotelOrganization.Type.Assault);
-       
+        
        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnSendEmergency;
+    private javax.swing.JButton backJButton;
+    private javax.swing.JButton btnsendemergency;
     private javax.swing.JComboBox<String> combo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField locationfield;
     private javax.swing.JLabel locationlbl;
+    private javax.swing.JTextField locationtxtfield;
     // End of variables declaration//GEN-END:variables
 }
-
-
-
