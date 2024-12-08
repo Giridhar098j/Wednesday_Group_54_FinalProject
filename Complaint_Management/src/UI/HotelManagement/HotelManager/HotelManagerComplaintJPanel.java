@@ -4,6 +4,19 @@
  */
 package UI.HotelManagement.HotelManager;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
+import Business.Organization.AssaultOrganization;
+import Business.Organization.HouseKeepingOrganization;
+import Business.Organization.HotelOrganization;
+import Business.Organization.TheftOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Complaints_Suggestions_Request;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Atharva
@@ -13,9 +26,21 @@ public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HotelManagerComplaintJPanel
      */
-    public HotelManagerComplaintJPanel() {
+    public String message1 = null;
+    private JPanel userProcessContainer;
+    private HotelEnterprise enterprise;
+    private UserAccount userAccount;
+    HotelNetwork network;
+    public HotelManagerComplaintJPanel(JPanel userProcessContainer, UserAccount userAccount, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+         this.network=network;
+         this.userProcessContainer = userProcessContainer;
+        this.enterprise = enterprise;
+        this.userAccount = userAccount;
+        
+        populateComboBox();
     }
+    Complaints_Suggestions_Request request = new Complaints_Suggestions_Request();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,6 +63,11 @@ public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
         jLabel1.setText("Hotel Manager Emergency Request ");
 
         btnBack.setText("Back<<");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Message:");
 
@@ -47,6 +77,12 @@ public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
         btnSendComplaint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSendComplaintActionPerformed(evt);
+            }
+        });
+
+        txtMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMessageActionPerformed(evt);
             }
         });
 
@@ -101,7 +137,88 @@ public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
 
     private void btnSendComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendComplaintActionPerformed
         // TODO add your handling code here:
+        String message = txtMessage.getText();
+        
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + txtMessage.getText());
+        
+    if(message.isEmpty())
+        {
+           System.out.println("sendComplaintActionPerformed 'messageJTextField' " + txtMessage.getText());
+            JOptionPane.showMessageDialog(null,"Message field should not be empty");
+        }
+    
+    else
+    {       
+                request.setMessage(message);
+
+        request.setSender(userAccount);
+        request.setStatus("Sent");
+
+        HotelOrganization org = null;
+        HotelOrganization.Type sel = (HotelOrganization.Type) combo.getSelectedItem();
+        if(sel.equals(HotelOrganization.Type.Assault))
+        {
+            for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+                if (organization instanceof AssaultOrganization){
+                    org = organization;
+                    break;
+                } }
+            }
+            if (org!=null){
+                org.getStatusQueue().getStatusRequestList().add(request);
+                userAccount.getStatusQueue().getStatusRequestList().add(request);
+            }
+            JOptionPane.showMessageDialog(null,"Your Assault complaint has been sent successfully");
+
+        }
+        
+        else if(sel.equals(HotelOrganization.Type.Theft))
+        {
+             for (HotelEnterprise enterprise: network.getEnterpriseDirectory().getHotelEnterpriseList())
+            {
+                  for(HotelOrganization organization:enterprise.getOrganizationDirectory().getHotelOrganizationList())
+                  {
+                if (organization instanceof TheftOrganization){
+                    org = organization;
+                    break;
+                } 
+            }
+            }
+            if (org!=null){
+                org.getStatusQueue().getStatusRequestList().add(request);
+                userAccount.getStatusQueue().getStatusRequestList().add(request);
+            }
+        JOptionPane.showMessageDialog(null,"Your Theft complaint has been sent successfully");
+
+        }
+        
+            
+
+                }
     }//GEN-LAST:event_btnSendComplaintActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        HotelManagerWorkAreaJPanel HMWA = (HotelManagerWorkAreaJPanel) component;
+        HMWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
+        // TODO add your handling code here:
+        if(txtMessage.getText()!=""){
+        message1 = txtMessage.getText();
+        System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message1);
+        }
+        else JOptionPane.showMessageDialog(null,"Message field should not be empty");
+    }//GEN-LAST:event_txtMessageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -113,4 +230,11 @@ public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtMessage;
     // End of variables declaration//GEN-END:variables
+
+    private void populateComboBox() {
+         combo.removeAllItems();
+        combo.addItem(HotelOrganization.Type.Assault);
+        combo.addItem(HotelOrganization.Type.Theft);
+       
+    }
 }
