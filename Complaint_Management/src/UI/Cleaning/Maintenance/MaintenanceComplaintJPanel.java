@@ -4,6 +4,9 @@
  */
 package UI.Cleaning.Maintenance;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+
 /**
  *
  * @author pulakantidikshithreddy
@@ -96,6 +99,14 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        MaintainanceWorkAreaJPanel MWA = (MaintainanceWorkAreaJPanel) component;
+        MWA.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
     }//GEN-LAST:event_btnBackActionPerformed
 
 
