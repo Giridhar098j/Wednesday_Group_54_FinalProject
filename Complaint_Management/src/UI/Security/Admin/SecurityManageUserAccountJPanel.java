@@ -4,6 +4,16 @@
  */
 package UI.Security.Admin;
 
+import Business.EcoSystem;
+import Business.HotelEmployee.HotelEmployee;
+import Business.HotelEmployee.HotelEmployeeDirectory;
+import Business.Network.HotelNetwork;
+import Business.Organization.HotelOrganization;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +23,18 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
     /**
      * Creates new form SecurityManageUserAccountJPanel
      */
-    public SecurityManageUserAccountJPanel() {
+    private JPanel container;
+    private HotelEnterprise enterprise;
+    HotelNetwork network;
+    
+    public SecurityManageUserAccountJPanel(JPanel userProcessContainer, HotelEnterprise enterprise,HotelNetwork network) {
         initComponents();
+        this.enterprise = enterprise;
+        container = userProcessContainer;
+        this.network = network;
+
+        populateCmbOrg();
+        populateData();
     }
 
     /**
@@ -81,6 +101,11 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
         lblRole.setText("Role :");
 
         cmbOrg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOrgActionPerformed(evt);
+            }
+        });
 
         cmbEmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -198,6 +223,9 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        container.remove(this);
+        CardLayout layout = (CardLayout) container.getLayout();
+        layout.previous(container);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -214,7 +242,67 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        String email = txtEmail.getText();
+            String userName = txtName.getText();
+            String password = String.valueOf(txtPwd.getText());
+            if (cmbEmp.getSelectedItem() != null) {
+                if (!((userName.equals("")))) {
+                    if (!(password.equals(""))) {
+                        if(!email.equals("")){
+                       if (EcoSystem.checkIfUsernameIsUnique(userName,network)) {
+                            
+                            HotelOrganization organization = (HotelOrganization) cmbOrg.getSelectedItem();
+                            HotelEmployee employee = (HotelEmployee) cmbEmp.getSelectedItem();
+                            Role role = (Role) cmbRole.getSelectedItem();
+//                            if (!Validate.validatePassword(password)) {
+//                                JOptionPane.showMessageDialog(null, "Password should Contain \n"
+//                                        + "       - At least one digit\n"
+//                                        + "       - At least one lower case letter\n"
+//                                        + "       - At least one upper case letter\n"
+//                                        + "       - At least one special character(!@#$%^&+=~|?)\n"
+//                                        + "       - no whitespace allowed in the entire string\n"
+//                                        + "       - at least eight characters");
+//                                txtPwd.setText("");
+//                                return;
+//                            }
+//                            if(!Validate.validateEmail(email))
+//                            {
+//                                 JOptionPane.showMessageDialog(null,"Enter valid email id ");
+//                                 emailtxtfield.setText("");
+//                                return;
+//                            
+//                            }
+                            organization.getUserAccountDirectory().createUserAccount(userName, password, email ,employee, role);
+                            JOptionPane.showMessageDialog(null, "!! Account created succesfully !!");
+                            txtName.setText("");
+                            txtPwd.setText("");
+                            txtEmail.setText("");
+                            populateData();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please enter a unique username", "Warning", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }else{
+                            JOptionPane.showMessageDialog(null, "Enter email", "Warning", JOptionPane.WARNING_MESSAGE);
+                        }}
+                        else {
+                        JOptionPane.showMessageDialog(null, "Enter password", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Enter username", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No Employee available", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void cmbOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgActionPerformed
+        // TODO add your handling code here:
+        HotelOrganization org = (HotelOrganization) cmbOrg.getSelectedItem();
+        if (org != null){
+            populateCmbEmp(org);
+            populateCmbRole(org);
+        }
+    }//GEN-LAST:event_cmbOrgActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,4 +324,87 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPwd;
     // End of variables declaration//GEN-END:variables
+
+    private void populateCmbEmp(HotelOrganization organization) {
+        try {
+            cmbEmp.removeAllItems();
+            if (organization.getEmployeeDirectory() == null) {
+                organization.setEmployeeDirectory(new HotelEmployeeDirectory());
+            }
+            if (organization.getEmployeeDirectory().getHotelEmployeeList().size() > 0) {
+                for (HotelEmployee emp : organization.getEmployeeDirectory().getHotelEmployeeList()) {
+                    cmbEmp.addItem(emp);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null,"For this organization, there are no Employees");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Please try again");
+        }
+    }
+
+    private void populateCmbRole(HotelOrganization org) {
+        try {
+            cmbRole.removeAllItems();
+            if (org.getSupportedRole() != null) {
+               
+                for (Role role : org.getSupportedRole()) {
+                    cmbRole.addItem(role);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,"For this organization, there are no roles");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Please try again");
+        }
+    }
+
+    public void populateCmbOrg() {
+        try {
+            cmbOrg.removeAllItems();
+            if (enterprise.getOrganizationDirectory() == null) {
+                enterprise.setOrganizationDirectory(new HotelOrganizationDirectory());
+            }
+            if (enterprise.getOrganizationDirectory().getHotelOrganizationList().size() > 0) {
+                for (HotelOrganization org : enterprise.getOrganizationDirectory().getHotelOrganizationList()) {
+                    cmbOrg.addItem(org);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,"There is no Organization");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Please try again");
+        }
+    }
+    
+    public void populateData() {
+
+          try {
+            DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
+
+            model.setRowCount(0);
+            if (enterprise.getOrganizationDirectory() == null) {
+                enterprise.setOrganizationDirectory(new HotelOrganizationDirectory());
+            }
+            if (enterprise.getOrganizationDirectory().getHotelOrganizationList().size() > 0) {
+                
+                for (HotelOrganization organization : enterprise.getOrganizationDirectory().getHotelOrganizationList()) {
+                    if(organization.getUserAccountDirectory()== null){
+                        organization.setUserAccountDirectory(new UserAccountDirectory());
+                    }
+                    for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+                        Object row[] = new Object[2];
+                        row[0] = ua;
+                        row[1] = ua.getRole();
+                        ((DefaultTableModel) UsersJTable.getModel()).addRow(row);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,"There is no Organization");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Please try again");
+        }
+    }
 }
