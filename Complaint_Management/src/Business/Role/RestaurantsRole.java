@@ -4,7 +4,7 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.RestaurantsOrganization;
@@ -12,7 +12,7 @@ import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
 import UI.HotelManagement.FrontDesk.FrontDeskWorkAreaJPanel;
 import javax.swing.JPanel;
-import UI.Services.Restaurants.RestaurantsWorkAreaJPanel;
+import UI.Services.Restaurants.RestaurantsWorkArea;
 
 
 /**
@@ -22,8 +22,8 @@ import UI.Services.Restaurants.RestaurantsWorkAreaJPanel;
 public class RestaurantsRole extends Role {
     
     @Override  //
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys business,HotelNetwork network) {
-   return new RestaurantsWorkAreaJPanel(userProcessContainer, account,(RestaurantsOrganization) organization, enterprise,business,network);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
+   return new RestaurantsWorkArea(userProcessContainer, account,(RestaurantsOrganization) organization, enterprise,business,network);
     }
       @Override 
     public String toString(){

@@ -132,8 +132,8 @@ public class RestaurantsComplaintJPanel extends javax.swing.JPanel {
  private void populateComboBox() {
         
          combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Assault);
-        combo.addItem(HotelOrganization.Type.Theft);
+        combo.addItem(HotelOrganization.Type.Assault.toString());
+        combo.addItem(HotelOrganization.Type.Theft.toString());
        
     }
     private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
@@ -215,7 +215,7 @@ public class RestaurantsComplaintJPanel extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        RestaurantsWorkAreaJPanel RWA = (RestaurantsWorkAreaJPanel) component;
+        RestaurantsWorkArea RWA = (RestaurantsWorkArea) component;
         RWA.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);

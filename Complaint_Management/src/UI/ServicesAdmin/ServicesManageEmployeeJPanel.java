@@ -38,7 +38,7 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
         organizationEmpcbox.removeAllItems();
         
         for (HotelOrganization organization : organizationDir.getHotelOrganizationList()){
-            organizationEmpcbox.addItem(organization);
+            organizationEmpcbox.addItem(organization.toString());
         }
     }
 
@@ -67,11 +67,11 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        OganizationJTable = new javax.swing.JTable();
+        OganizationsJTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         organizationEmpcbox = new javax.swing.JComboBox<>();
-        namejTextField = new javax.swing.JTextField();
+        nameJTextField = new javax.swing.JTextField();
         btnCreateEmployee = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
@@ -84,7 +84,7 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
-        OganizationJTable.setModel(new javax.swing.table.DefaultTableModel(
+        OganizationsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -95,7 +95,7 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
                 "Name"
             }
         ));
-        jScrollPane1.setViewportView(OganizationJTable);
+        jScrollPane1.setViewportView(OganizationsJTable);
 
         jLabel2.setText("Organization:");
 
@@ -108,9 +108,9 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
-        namejTextField.addActionListener(new java.awt.event.ActionListener() {
+        nameJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                namejTextFieldActionPerformed(evt);
+                nameJTextFieldActionPerformed(evt);
             }
         });
 
@@ -143,7 +143,7 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(organizationEmpcbox, 0, 200, Short.MAX_VALUE)
-                                        .addComponent(namejTextField))))))
+                                        .addComponent(nameJTextField))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(178, 178, 178)
                         .addComponent(btnCreateEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -165,7 +165,7 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(namejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCreateEmployee)
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -199,14 +199,14 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void namejTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namejTextFieldActionPerformed
+    private void nameJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameJTextFieldActionPerformed
         // TODO add your handling code here:
-        if(namejTextField.getText()!=""){
-        message1 = namejTextField.getText();
+        if(nameJTextField.getText()!=""){
+        message1 = nameJTextField.getText();
         System.out.println("sendComplaintActionPerformed 'messageJTextField' " + message1);
         }
         else JOptionPane.showMessageDialog(null,"Message field should not be empty");
-    }//GEN-LAST:event_namejTextFieldActionPerformed
+    }//GEN-LAST:event_nameJTextFieldActionPerformed
 
     private void organizationEmpcboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationEmpcboxActionPerformed
         // TODO add your handling code here:
@@ -214,14 +214,14 @@ public class ServicesManageEmployeeJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable OganizationJTable;
+    private javax.swing.JTable OganizationsJTable;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateEmployee;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField namejTextField;
+    private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox<String> organizationEmpcbox;
     // End of variables declaration//GEN-END:variables
 }

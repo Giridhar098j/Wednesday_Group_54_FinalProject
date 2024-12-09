@@ -6,7 +6,7 @@ package UI.Services.Restaurants;
 
 import UI.Services.Restaurants.RestaurantsEmergencyRequestJPanel;
 import UI.Services.Restaurants.RestaurantsComplaintJPanel;
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.RestaurantsOrganization;
@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class RestaurantsWorkArea extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
-    private EcoSys business;
+    private EcoSystem business;
     private UserAccount userAccount;
     private RestaurantsOrganization diningOrganization;
     private HotelEnterprise enterprise;
@@ -38,7 +38,7 @@ public class RestaurantsWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form RestaurantsWorkArea
      */
-    public RestaurantsWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization,HotelEnterprise enterprise ,EcoSys business,HotelNetwork network) {
+    public RestaurantsWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization,HotelEnterprise enterprise ,EcoSystem business,HotelNetwork network) {
         initComponents();
         this.network=network;
         this.userProcessContainer = userProcessContainer;

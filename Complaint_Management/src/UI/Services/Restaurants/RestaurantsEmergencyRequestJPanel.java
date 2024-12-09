@@ -43,7 +43,7 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
     }
 
     EmergencyRequest  erequest = new EmergencyRequest();
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,7 +139,7 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        RestaurantsWorkAreaJPanel RWA = (RestaurantsWorkAreaJPanel) component;
+        RestaurantsWorkArea RWA = (RestaurantsWorkArea) component;
         RWA.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
@@ -148,8 +148,8 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
 
     private void locationfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationfieldActionPerformed
         // TODO add your handling code here:
-        if(locationfiield.getText()!=""){
-        message1 = locationfiield.getText();
+        if(locationfield.getText()!=""){
+        message1 = locationfield.getText();
         
         }
         else JOptionPane.showMessageDialog(null,"Location field is empty");
@@ -157,7 +157,7 @@ public class RestaurantsEmergencyRequestJPanel extends javax.swing.JPanel {
 
     private void btnSendEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmergencyActionPerformed
         // TODO add your handling code here:
-String location = locationfiield.getText();
+String location = locationfield.getText();
         erequest.setLocation(location);
         erequest.setEmergencytype((HotelOrganization.Type) combo.getSelectedItem());
         erequest.setEmail(userAccount.getEmail());
@@ -216,8 +216,8 @@ String location = locationfiield.getText();
     private void populateComboBox() {
         
          combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Theft);
-        combo.addItem(HotelOrganization.Type.Assault);
+        combo.addItem(HotelOrganization.Type.Theft.toString());
+        combo.addItem(HotelOrganization.Type.Assault.toString());
        
        
     }

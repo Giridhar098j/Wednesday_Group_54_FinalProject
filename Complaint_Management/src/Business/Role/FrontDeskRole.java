@@ -13,7 +13,7 @@ import Business.Organization.FrontDeskOrganization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 import UI.HotelManagement.FrontDesk.FrontDeskWorkAreaJPanel;
-import UI.HotelManagement.FrontDesk.FrontDestWorkAreaJPanel;
+import UI.HotelManagement.FrontDesk.FrontDeskWorkAreaJPanel;
 
 /**
  *
@@ -23,7 +23,7 @@ public class FrontDeskRole extends Role {
     
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
-        return new FrontDestWorkAreaJPanel(userProcessContainer, account, (FrontDeskOrganization)organization, enterprise,business,network);
+        return new FrontDeskWorkAreaJPanel(userProcessContainer, account, (FrontDeskOrganization)organization, enterprise,business,network);
     }
     
       @Override

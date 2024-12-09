@@ -7,8 +7,14 @@ package UI.Security.Admin;
 import Business.EcoSystem;
 import Business.HotelEmployee.HotelEmployee;
 import Business.HotelEmployee.HotelEmployeeDirectory;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
+import Business.Role.Role;
+import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
+import Validations.Validate;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -254,24 +260,24 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
                             HotelOrganization organization = (HotelOrganization) cmbOrg.getSelectedItem();
                             HotelEmployee employee = (HotelEmployee) cmbEmp.getSelectedItem();
                             Role role = (Role) cmbRole.getSelectedItem();
-//                            if (!Validate.validatePassword(password)) {
-//                                JOptionPane.showMessageDialog(null, "Password should Contain \n"
-//                                        + "       - At least one digit\n"
-//                                        + "       - At least one lower case letter\n"
-//                                        + "       - At least one upper case letter\n"
-//                                        + "       - At least one special character(!@#$%^&+=~|?)\n"
-//                                        + "       - no whitespace allowed in the entire string\n"
-//                                        + "       - at least eight characters");
-//                                txtPwd.setText("");
-//                                return;
-//                            }
-//                            if(!Validate.validateEmail(email))
-//                            {
-//                                 JOptionPane.showMessageDialog(null,"Enter valid email id ");
-//                                 emailtxtfield.setText("");
-//                                return;
-//                            
-//                            }
+                            if (!Validate.validatePassword(password)) {
+                                JOptionPane.showMessageDialog(null, "Password should Contain \n"
+                                        + "       - At least one digit\n"
+                                        + "       - At least one lower case letter\n"
+                                        + "       - At least one upper case letter\n"
+                                        + "       - At least one special character(!@#$%^&+=~|?)\n"
+                                        + "       - no whitespace allowed in the entire string\n"
+                                        + "       - at least eight characters");
+                                txtPwd.setText("");
+                                return;
+                            }
+                            if(!Validate.validateEmail(email))
+                            {
+                                 JOptionPane.showMessageDialog(null,"Enter valid email id ");
+                                 txtEmail.setText("");
+                                return;
+                            
+                            }
                             organization.getUserAccountDirectory().createUserAccount(userName, password, email ,employee, role);
                             JOptionPane.showMessageDialog(null, "!! Account created succesfully !!");
                             txtName.setText("");
@@ -333,7 +339,7 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
             }
             if (organization.getEmployeeDirectory().getHotelEmployeeList().size() > 0) {
                 for (HotelEmployee emp : organization.getEmployeeDirectory().getHotelEmployeeList()) {
-                    cmbEmp.addItem(emp);
+                    cmbEmp.addItem(emp.toString());
                 }
 
             } else {
@@ -350,7 +356,7 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
             if (org.getSupportedRole() != null) {
                
                 for (Role role : org.getSupportedRole()) {
-                    cmbRole.addItem(role);
+                    cmbRole.addItem(role.toString());
                 }
             } else {
                 JOptionPane.showMessageDialog(null,"For this organization, there are no roles");
@@ -368,7 +374,7 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
             }
             if (enterprise.getOrganizationDirectory().getHotelOrganizationList().size() > 0) {
                 for (HotelOrganization org : enterprise.getOrganizationDirectory().getHotelOrganizationList()) {
-                    cmbOrg.addItem(org);
+                    cmbOrg.addItem(org.toString());
                 }
             } else {
                 JOptionPane.showMessageDialog(null,"There is no Organization");
@@ -397,7 +403,7 @@ public class SecurityManageUserAccountJPanel extends javax.swing.JPanel {
                         Object row[] = new Object[2];
                         row[0] = ua;
                         row[1] = ua.getRole();
-                        ((DefaultTableModel) UsersJTable.getModel()).addRow(row);
+                        ((DefaultTableModel) tblUser.getModel()).addRow(row);
                     }
                 }
             } else {

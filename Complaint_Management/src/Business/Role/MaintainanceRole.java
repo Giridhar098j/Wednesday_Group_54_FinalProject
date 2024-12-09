@@ -4,7 +4,7 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.RestaurantsOrganization;
@@ -12,8 +12,8 @@ import Business.Organization.MaintainanceOrganization;
 import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import UI.Services.Restaurants.RestaurantsWorkAreaJPanel;
-import UI.Cleaning.Maintainance.MaintainanceWorkAreaJPanel;
+import UI.Services.Restaurants.RestaurantsWorkArea;
+import UI.Cleaning.Maintenance.MaintenanceWorkArea;
 
 /**
  *
@@ -22,8 +22,8 @@ import UI.Cleaning.Maintainance.MaintainanceWorkAreaJPanel;
 public class MaintainanceRole extends Role {
     
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys business,HotelNetwork network) {
-   return new MaintainanceWorkAreaJPanel(userProcessContainer, account,(MaintainanceOrganization) organization,enterprise, business,network);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
+   return new MaintenanceWorkArea(userProcessContainer, account,(MaintainanceOrganization) organization,enterprise, business,network);
     }
      @Override
     public String toString(){

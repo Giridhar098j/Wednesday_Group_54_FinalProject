@@ -35,7 +35,7 @@ public class ServicesManageOrganizationJPanel extends javax.swing.JPanel {
     
     private void populateCombo(){
         organizationJComboBox.removeAllItems();
-        organizationJComboBox.addItem(Type.Restaurants);
+        organizationJComboBox.addItem(Type.Restaurants.toString());
             
     }
 

@@ -5,13 +5,30 @@
 package Validations;
 
 import UI.Security.Assault.AssaultWorkAreaJPanel;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.mail.SendFailedException;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import java.util.ArrayList;
+import javax.mail.internet.AddressException;
+import UI.SignUp.AuthenticationJPanel;
 
 /**
  *
@@ -64,8 +81,8 @@ public class Validate {
         // Recipient's email ID needs to be mentioned.
         String to = emailId;
 
-        String from = "divyasree79723@gmail.com";
-        String pass = "kziwmqhrdfgzjvou";
+        String from = "giridharjajapuram@gmail.com";
+        String pass = "instagram.1";
 
         // Get system properties
         Properties properties = System.getProperties();

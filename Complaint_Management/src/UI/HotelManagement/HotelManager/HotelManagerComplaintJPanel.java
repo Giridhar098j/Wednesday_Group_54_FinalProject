@@ -233,8 +233,8 @@ public class HotelManagerComplaintJPanel extends javax.swing.JPanel {
 
     private void populateComboBox() {
          combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Assault);
-        combo.addItem(HotelOrganization.Type.Theft);
+        combo.addItem(HotelOrganization.Type.Assault.toString());
+        combo.addItem(HotelOrganization.Type.Theft.toString());
        
     }
 }

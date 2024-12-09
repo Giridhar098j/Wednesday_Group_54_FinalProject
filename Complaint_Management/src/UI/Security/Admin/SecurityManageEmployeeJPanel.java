@@ -6,6 +6,7 @@ package UI.Security.Admin;
 
 import Business.HotelEmployee.HotelEmployee;
 import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,7 +45,7 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        OrganizationsJTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         cmbOrgEmp = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -60,7 +61,7 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Security Employee Management");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        OrganizationsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -79,7 +80,7 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(OrganizationsJTable);
 
         jLabel2.setText("Organization :");
 
@@ -168,6 +169,7 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable OrganizationsJTable;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateEmp;
     private javax.swing.JComboBox<String> cmbOrgEmp;
@@ -175,14 +177,13 @@ public class SecurityManageEmployeeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
     private void populateCmbOrgEmp() {
         cmbOrgEmp.removeAllItems();
         for (HotelOrganization org : orgDir.getHotelOrganizationList()){
-            cmbOrgEmp.addItem(org);
+            cmbOrgEmp.addItem(org.toString());
         }
     }
     

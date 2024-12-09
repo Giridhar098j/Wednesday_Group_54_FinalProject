@@ -4,17 +4,21 @@
  */
 package UI.SystemAdminWorkArea;
 
+import Business.EcoSystem;
 import Business.HotelEmployee.HotelEmployee;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
-import Business.Role.CleaningAdminRole;
-import Business.Role.HotelAdminRole;
 import Business.Role.SecurityAdminRole;
+import Business.Role.HotelAdminRole;
 import Business.Role.ServicesAdminRole;
+import Business.Role.CleaningAdminRole;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import Validations.Validate;
 
 /**
  *
@@ -28,10 +32,10 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     
-    public ManageHotelEnterpriseAdminJPanel() {
+    public ManageHotelEnterpriseAdminJPanel(JPanel userProcessContainer, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.system = system;\
+        this.system = system;
         populateTable();
         populateNetworkComboBox();
     }
@@ -59,9 +63,9 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
         lblPwd = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
-        txtPwd = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
+        txtPwd = new javax.swing.JPasswordField();
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +136,8 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtPwd.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,7 +162,10 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
                             .addComponent(txtName))
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPwd)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblPwd)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblUsername)
@@ -164,7 +173,6 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -305,7 +313,7 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblEnterprise;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPwd;
+    private javax.swing.JPasswordField txtPwd;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
@@ -331,7 +339,7 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
              cmbNetwork.removeAllItems();
         if(system.getNetworkList().size()!=0){                     //Checking whether system contains any network
            for (HotelNetwork network : system.getNetworkList()) {
-                cmbNetwork.addItem(network);
+                cmbNetwork.addItem(network.toString());
             }
            
            
@@ -350,7 +358,7 @@ public class ManageHotelEnterpriseAdminJPanel extends javax.swing.JPanel {
         cmbEnterprise.removeAllItems();
         
         for (HotelEnterprise enterprise : network.getEnterpriseDirectory().getHotelEnterpriseList()){
-            cmbEnterprise.addItem(enterprise);
+            cmbEnterprise.addItem(enterprise.toString());
         }
         
     }

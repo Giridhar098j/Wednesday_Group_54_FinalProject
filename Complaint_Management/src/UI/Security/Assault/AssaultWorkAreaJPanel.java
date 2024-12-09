@@ -5,8 +5,15 @@
 package UI.Security.Assault;
 
 import Business.EcoSystem;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
+import Business.Organization.AssaultOrganization;
 import Business.Organization.HotelOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Complaints_Suggestions_Request;
+import Business.WorkQueue.EmergencyRequest;
+import Business.WorkQueue.StatusRequest;
+import Validations.ValidateMail;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -230,7 +237,7 @@ public class AssaultWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         
-        Complaints_Suggestions_Request request = (Complaints_Suggestions_Request)WorkRequestsJTable.getValueAt(selectedRow, 0);
+        Complaints_Suggestions_Request request = (Complaints_Suggestions_Request)tblWorkReq.getValueAt(selectedRow, 0);
         
         if(request.getStatus()=="Completed")   
             JOptionPane.showMessageDialog(null,"Request has been completed already");  

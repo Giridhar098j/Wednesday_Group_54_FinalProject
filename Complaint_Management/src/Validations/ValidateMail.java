@@ -5,11 +5,12 @@
 package Validations;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.regex.*;
+import javax.activation.*;
+import javax.swing.JOptionPane;
 
 /**
  *

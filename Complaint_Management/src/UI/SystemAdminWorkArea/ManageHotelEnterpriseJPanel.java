@@ -5,6 +5,7 @@
 package UI.SystemAdminWorkArea;
 
 import Business.EcoSystem;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -24,7 +25,7 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     
-    public ManageHotelEnterpriseJPanel() {
+    public ManageHotelEnterpriseJPanel(JPanel userProcessContainer, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.system = system;
@@ -169,7 +170,7 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (!txtName.getText().equals("")) {
             HotelNetwork network = (HotelNetwork) cmbNetwork.getSelectedItem();
-            HotelEnterprise.HotelEnterpriseType type = (HotelEnterprise.HotelEnterpriseType) EnterprisesTypeJComboBox.getSelectedItem();
+            HotelEnterprise.HotelEnterpriseType type = (HotelEnterprise.HotelEnterpriseType) cmbEnt.getSelectedItem();
 
             if (network == null || type == null) {
                 JOptionPane.showMessageDialog(null, "Invalid");
@@ -269,11 +270,11 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
         cmbEnt.removeAllItems();
 
         for (HotelNetwork network : system.getNetworkList()) {
-            cmbNetwork.addItem(network);
+            cmbNetwork.addItem(network.toString());
         }
 
         for (HotelEnterprise.HotelEnterpriseType type : HotelEnterprise.HotelEnterpriseType.values()) {
-            cmbEnt.addItem(type);
+            cmbEnt.addItem(type.toString());
         }
 
     }

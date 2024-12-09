@@ -217,8 +217,8 @@ public class FrontDeskEmergencyRequestJPanel extends javax.swing.JPanel {
 private void populateComboBox() {
         
          combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Theft);
-        combo.addItem(HotelOrganization.Type.Assault);
+        combo.addItem(HotelOrganization.Type.Theft.toString());
+        combo.addItem(HotelOrganization.Type.Assault.toString());
         
        
     }

@@ -4,12 +4,12 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
-import UI.SysAdminWorkArea.SysAdminWorkAreaJPanel;
+import UI.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -19,8 +19,8 @@ import javax.swing.JPanel;
 public class SysAdminRole extends Role{
     
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys system,HotelNetwork network) {
-        return new SysAdminWorkAreaJPanel(userProcessContainer, system,network);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem system,HotelNetwork network) {
+        return new SystemAdminWorkAreaJPanel(userProcessContainer, system,network);
     }
     
 }

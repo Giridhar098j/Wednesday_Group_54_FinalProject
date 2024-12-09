@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -195,7 +197,7 @@ public class AuthenticationJPanel extends javax.swing.JPanel {
         {
         
         CardLayout layout = (CardLayout) container.getLayout();
-        container.add("SignUpJPanel", new SignUpJPanel(container, sys,emailtxtfield.getText()));
+        container.add("SignUpJPanel", new SignupJPanel(container, sys,txtEmail.getText()));
         layout.next(container);
         
         }

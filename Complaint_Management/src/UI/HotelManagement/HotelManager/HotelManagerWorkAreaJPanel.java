@@ -4,7 +4,7 @@
  */
 package UI.HotelManagement.HotelManager;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelManagerOrganization;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class HotelManagerWorkAreaJPanel extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
-    private EcoSys business;
+    private EcoSystem business;
     private UserAccount userAccount;
     private HotelManagerOrganization facultyOrganization;
     private HotelEnterprise enterprise;
@@ -33,7 +33,7 @@ public class HotelManagerWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HotelManagerWorkAreaJPanel
      */
-    public HotelManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
+    public HotelManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSystem business,HotelNetwork network) {
         initComponents();
         this.enterprise=enterprise;
         this.userProcessContainer = userProcessContainer;

@@ -4,7 +4,7 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
@@ -19,7 +19,7 @@ import UI.ServicesAdmin.ServicesAdminWorkAreaJPanel;
 public class ServicesAdminRole extends Role {
     
      @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys business,HotelNetwork network) {
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
         return new ServicesAdminWorkAreaJPanel(userProcessContainer, enterprise,network);
     }
     

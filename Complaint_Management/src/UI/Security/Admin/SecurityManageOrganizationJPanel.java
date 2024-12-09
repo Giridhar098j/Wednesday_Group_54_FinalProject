@@ -5,6 +5,7 @@
 package UI.Security.Admin;
 
 import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -141,7 +142,7 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
 
     private void btnAddOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgActionPerformed
         // TODO add your handling code here:
-        HotelOrganization.Type type = (HotelOrganization.Type) organizationJComboBox.getSelectedItem();
+        HotelOrganization.Type type = (HotelOrganization.Type) cmbOrg.getSelectedItem();
         
         dir.createHotelOrganization(type);
         JOptionPane.showMessageDialog(null,"Organization has been added successfully!");
@@ -161,8 +162,8 @@ public class SecurityManageOrganizationJPanel extends javax.swing.JPanel {
     
     private void populateCombo() {
         cmbOrg.removeAllItems();
-        cmbOrg.addItem(HotelOrganization.Type.Assault);
-        cmbOrg.addItem(HotelOrganization.Type.Theft);
+        cmbOrg.addItem(HotelOrganization.Type.Assault.toString());
+        cmbOrg.addItem(HotelOrganization.Type.Theft.toString());
        
         
     }

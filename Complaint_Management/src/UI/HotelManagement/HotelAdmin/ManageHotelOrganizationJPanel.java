@@ -5,6 +5,7 @@
 package UI.HotelManagement.HotelAdmin;
 
 import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -172,6 +173,6 @@ public class ManageHotelOrganizationJPanel extends javax.swing.JPanel {
 
     private void populateCombo() {
         cmbOrg.removeAllItems();         
-        cmbOrg.addItem(HotelOrganization.Type.FrontDesk);
-        cmbOrg.addItem(HotelOrganization.Type.HotelManager);    }
+        cmbOrg.addItem(HotelOrganization.Type.FrontDesk.toString());
+        cmbOrg.addItem(HotelOrganization.Type.HotelManager.toString());    }
 }

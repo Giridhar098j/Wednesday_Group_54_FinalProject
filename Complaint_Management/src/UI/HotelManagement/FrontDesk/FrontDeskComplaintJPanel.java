@@ -230,8 +230,8 @@ public class FrontDeskComplaintJPanel extends javax.swing.JPanel {
     private void populateComboBox() {
         
         DepartmentCombobox.removeAllItems();
-        DepartmentCombobox.addItem(HotelOrganization.Type.Assault);
-        DepartmentCombobox.addItem(HotelOrganization.Type.Theft);
+        DepartmentCombobox.addItem(HotelOrganization.Type.Assault.toString());
+        DepartmentCombobox.addItem(HotelOrganization.Type.Theft.toString());
        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

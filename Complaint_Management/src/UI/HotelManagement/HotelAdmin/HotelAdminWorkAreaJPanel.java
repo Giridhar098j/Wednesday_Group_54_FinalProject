@@ -4,6 +4,7 @@
  */
 package UI.HotelManagement.HotelAdmin;
 
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -99,9 +100,9 @@ public class HotelAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(58, 58, 58)
                 .addComponent(lblTitle)
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEnterpriseTitle)
-                    .addComponent(lblEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEnterpriseTitle, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblEnterprise, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
                 .addComponent(btnMngOrg)
                 .addGap(18, 18, 18)

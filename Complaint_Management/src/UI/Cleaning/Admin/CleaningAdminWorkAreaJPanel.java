@@ -46,6 +46,8 @@ public class CleaningAdminWorkAreaJPanel extends javax.swing.JPanel {
         btnManagingEmployees = new javax.swing.JButton();
         btnManagingUsers = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(206, 194, 206));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setText("Cleaning Enterprise Admin");
 

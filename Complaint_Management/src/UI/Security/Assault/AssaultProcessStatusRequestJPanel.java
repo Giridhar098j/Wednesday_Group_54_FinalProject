@@ -4,6 +4,7 @@
  */
 package UI.Security.Assault;
 
+import Business.WorkQueue.Complaints_Suggestions_Request;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;

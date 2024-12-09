@@ -4,7 +4,7 @@
  */
 package UI.ServicesAdmin;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEmployee.HotelEmployee;
 import Business.HotelEmployee.HotelEmployeeDirectory;
 import Business.HotelEnterprise.HotelEnterprise;
@@ -31,6 +31,7 @@ public class ServicesManageUserAccountJPanel extends javax.swing.JPanel {
      */
     private JPanel container;
     private HotelEnterprise enterprise;
+    private HotelNetwork net;
     public ServicesManageUserAccountJPanel(JPanel container, HotelEnterprise enterprise,HotelNetwork net) {
         initComponents();
          this.enterprise = enterprise;
@@ -48,7 +49,7 @@ public class ServicesManageUserAccountJPanel extends javax.swing.JPanel {
             if (organization.getSupportedRole() != null) {
                 
                 for (Role role : organization.getSupportedRole()) {
-                    roleJComboBox.addItem(role);
+                    roleJComboBox.addItem(role.toString());
                 }
             } else {
                   JOptionPane.showMessageDialog(null,"There is no  roles in this Organization");
@@ -69,7 +70,7 @@ public class ServicesManageUserAccountJPanel extends javax.swing.JPanel {
             if (organization.getEmployeeDirectory().getHotelEmployeeList().size() > 0) {
               
                 for (HotelEmployee employee : organization.getEmployeeDirectory().getHotelEmployeeList()) {
-                    employeeJComboBox.addItem(employee);
+                    employeeJComboBox.addItem(employee.toString());
                 }
 
             } else {
@@ -260,7 +261,7 @@ public class ServicesManageUserAccountJPanel extends javax.swing.JPanel {
                 if (!((userName.equals("")))) {
                     if (!(password.equals(""))) {
                         if(!email.equals("")){
-                         if (EcoSys.checkIfUsernameIsUnique(userName,net)) {
+                         if (EcoSystem.checkIfUsernameIsUnique(userName,net)) {
                             
                             HotelOrganization organization = (HotelOrganization) organizationJComboBox.getSelectedItem();
                             HotelEmployee employee = (HotelEmployee) employeeJComboBox.getSelectedItem();
@@ -345,7 +346,7 @@ public class ServicesManageUserAccountJPanel extends javax.swing.JPanel {
             }
             if (enterprise.getOrganizationDirectory().getHotelOrganizationList().size() > 0) {
                 for (HotelOrganization organization : enterprise.getOrganizationDirectory().getHotelOrganizationList()) {
-                    organizationJComboBox.addItem(organization);
+                    organizationJComboBox.addItem(organization.toString());
                 }
             } else {
                 JOptionPane.showMessageDialog(null,"There is no Organization");

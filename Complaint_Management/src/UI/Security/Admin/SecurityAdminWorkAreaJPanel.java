@@ -4,7 +4,10 @@
  */
 package UI.Security.Admin;
 
+import Business.EcoSystem;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -18,13 +21,13 @@ public class SecurityAdminWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form SecurityAdminWorkAreaJPanel
      */
     private JPanel userProcessContainer;
-    private EcoSys business;
+    private EcoSystem business;
     private UserAccount userAccount;
     
     private HotelEnterprise enterprise;
     private HotelNetwork network;
     
-    public SecurityAdminWorkAreaJPanel() {
+    public SecurityAdminWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
         initComponents();
         this.enterprise=enterprise;
         this.userProcessContainer = userProcessContainer;
@@ -32,7 +35,7 @@ public class SecurityAdminWorkAreaJPanel extends javax.swing.JPanel {
         this.business = business;
         this.network=network;
         
-        lblEnterprise,setText(enterprise.getName());
+        lblEnterprise.setText(enterprise.getName());
     }
 
     /**

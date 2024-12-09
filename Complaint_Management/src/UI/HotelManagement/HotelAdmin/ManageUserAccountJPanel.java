@@ -7,8 +7,14 @@ package UI.HotelManagement.HotelAdmin;
 import Business.EcoSystem;
 import Business.HotelEmployee.HotelEmployee;
 import Business.HotelEmployee.HotelEmployeeDirectory;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
+import Business.Role.Role;
+import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
+import Validations.Validate;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -336,7 +342,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             }
             if (enterprise.getOrganizationDirectory().getHotelOrganizationList().size() > 0) {
                 for (HotelOrganization org : enterprise.getOrganizationDirectory().getHotelOrganizationList()) {
-                    cmbOrg.addItem(org);
+                    cmbOrg.addItem(org.toString());
                 }
             } else {
                 JOptionPane.showMessageDialog(null,"There is no Organization");
@@ -387,7 +393,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             if (organization.getEmployeeDirectory().getHotelEmployeeList().size() > 0) {
               
                 for (HotelEmployee employee : organization.getEmployeeDirectory().getHotelEmployeeList()) {
-                    cmbEmp.addItem(employee);
+                    cmbEmp.addItem(employee.toString());
                 }
 
             } else {
@@ -406,7 +412,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             if (organization.getSupportedRole() != null) {
                 
                 for (Role role : organization.getSupportedRole()) {
-                    cmbRole.addItem(role);
+                    cmbRole.addItem(role.toString());
                 }
             } else {
                   JOptionPane.showMessageDialog(null,"There is no Organization");

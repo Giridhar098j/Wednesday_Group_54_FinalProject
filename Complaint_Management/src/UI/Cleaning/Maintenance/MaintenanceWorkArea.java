@@ -4,7 +4,7 @@
  */
 package UI.Cleaning.Maintenance;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.MaintainanceOrganization;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class MaintenanceWorkArea extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
-    private EcoSys business;
+    private EcoSystem business;
     private UserAccount userAccount;
     private MaintainanceOrganization MaintainanceOrganization;
     private HotelEnterprise enterprise;
@@ -33,7 +33,7 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
     /**
      * Creates new form MaintenanceWorkArea
      */
-    public MaintenanceWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
+    public MaintenanceWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSystem business,HotelNetwork network) {
         initComponents();
         this.enterprise=enterprise;
         this.userProcessContainer = userProcessContainer;
@@ -144,14 +144,14 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
     private void btnAddComplaintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddComplaintActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("MaintainanceComplaintJPanel", new MaintainanceComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
+        userProcessContainer.add("MaintenanceComplaintJPanel", new MaintenanceComplaintJPanel(userProcessContainer, userAccount, enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddComplaintActionPerformed
 
     private void btnEmergencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmergencyActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("MaintainanceEmergencyRequestJpanel", new MaintainanceEmergencyRequestJPanel(userProcessContainer, userAccount, enterprise,network));
+        userProcessContainer.add("MaintenanceEmergencyRequestJpanel", new MaintenanceEmergencyRequest(userProcessContainer, userAccount, enterprise,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnEmergencyActionPerformed
 

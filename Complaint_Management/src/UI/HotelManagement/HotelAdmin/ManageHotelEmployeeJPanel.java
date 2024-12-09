@@ -6,6 +6,7 @@ package UI.HotelManagement.HotelAdmin;
 
 import Business.HotelEmployee.HotelEmployee;
 import Business.Organization.HotelOrganization;
+import Business.Organization.HotelOrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -175,7 +176,7 @@ public class ManageHotelEmployeeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void populateTable(HotelOrganization organization){
-        DefaultTableModel model = (DefaultTableModel) OrganizationsJTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblOrganization.getModel();
         
         model.setRowCount(0);
         
@@ -191,7 +192,7 @@ public class ManageHotelEmployeeJPanel extends javax.swing.JPanel {
         cmbOrgEmp.removeAllItems();
         
         for (HotelOrganization org : orgDir.getHotelOrganizationList()){
-            cmbOrgEmp.addItem(org);
+            cmbOrgEmp.addItem(org.toString());
         }
     }
 

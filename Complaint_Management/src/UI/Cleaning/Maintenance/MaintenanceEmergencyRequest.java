@@ -196,7 +196,7 @@ public class MaintenanceEmergencyRequest extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        MaintainanceWorkAreaJPanel MWA = (MaintainanceWorkAreaJPanel) component;
+        MaintenanceWorkArea MWA = (MaintenanceWorkArea) component;
         MWA.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
@@ -204,8 +204,8 @@ public class MaintenanceEmergencyRequest extends javax.swing.JPanel {
     
     private void populateComboBox() {
          combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Theft);
-        combo.addItem(HotelOrganization.Type.Assault);
+        combo.addItem(HotelOrganization.Type.Theft.toString());
+        combo.addItem(HotelOrganization.Type.Assault.toString());
      
     }
 

@@ -5,8 +5,15 @@
 package UI.Security.Theft;
 
 import Business.EcoSystem;
+import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
+import Business.Organization.TheftOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Complaints_Suggestions_Request;
+import Business.WorkQueue.EmergencyRequest;
+import Business.WorkQueue.StatusRequest;
+import Validations.ValidateMail;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -220,7 +227,7 @@ public class TheftWorkAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Request has to be assigned first");
         else { 
             request.setStatus("Processing");
-            TheftProcessStatusRequestJPanel processWorkRequestJPanel = new TheftProcessStatusRequestJPanel(userProcessContainer, request);
+            TheftProccessStatusRequestJPanel processWorkRequestJPanel = new TheftProccessStatusRequestJPanel(userProcessContainer, request);
             userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);

@@ -9,7 +9,7 @@ import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
-import UI.HotelManagement.HotelAdmin.HotelManagementHotelAdminWorkAreaJPanel;
+import UI.HotelManagement.HotelAdmin.HotelAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -19,8 +19,8 @@ import javax.swing.JPanel;
 public class HotelAdminRole extends Role{
     
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys business,HotelNetwork network) {
-        return new HotelManagementHotelAdminWorkAreaJPanel(userProcessContainer, enterprise,network);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
+        return new HotelAdminWorkAreaJPanel(userProcessContainer, enterprise,network);
     }
 
     

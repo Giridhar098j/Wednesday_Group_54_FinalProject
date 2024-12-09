@@ -24,7 +24,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     
-    public ManageNetworkJPanel() {
+    public ManageNetworkJPanel(JPanel userProcessContainer, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.system = system;
@@ -169,7 +169,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void populateNetworkTable() {
-        DefaultTableModel model = (DefaultTableModel) NeuNetworksJTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblNetworks.getModel();
 
         model.setRowCount(0);
         for (HotelNetwork network : system.getNetworkList()) {
