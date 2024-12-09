@@ -64,7 +64,7 @@ public class LoginScreenJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(123, 123, 128));
 
         loginbtn.setBackground(new java.awt.Color(0, 0, 0));
         loginbtn.setFont(new java.awt.Font("Optima", 0, 14)); // NOI18N
@@ -137,7 +137,7 @@ public class LoginScreenJFrame extends javax.swing.JFrame {
         jLabel3.setText("New User?");
 
         jLabel4.setFont(new java.awt.Font("Osaka", 1, 18)); // NOI18N
-        jLabel4.setText("Welcome to Northeastern Hotels");
+        jLabel4.setText("Welcome to GDA Hotel");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,7 +202,7 @@ public class LoginScreenJFrame extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel1);
 
-        container.setBackground(new java.awt.Color(76, 89, 115));
+        container.setBackground(new java.awt.Color(206, 194, 206));
         container.setAutoscrolls(true);
         container.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         container.setMaximumSize(new java.awt.Dimension(750, 750));
@@ -210,7 +210,7 @@ public class LoginScreenJFrame extends javax.swing.JFrame {
         container.setPreferredSize(new java.awt.Dimension(750, 750));
         container.setLayout(new java.awt.CardLayout());
 
-        jLabel5.setBackground(new java.awt.Color(204, 204, 255));
+        jLabel5.setBackground(new java.awt.Color(206, 194, 206));
         jLabel5.setForeground(new java.awt.Color(204, 204, 255));
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         container.add(jLabel5, "card2");

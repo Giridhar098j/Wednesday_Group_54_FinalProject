@@ -59,6 +59,8 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
         txtMessage = new javax.swing.JTextField();
         btnSendComplaint = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(206, 194, 206));
+
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +68,7 @@ public class MaintenanceComplaintJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("HouseKeeping Complaints");
 
         jLabel2.setText("Message");

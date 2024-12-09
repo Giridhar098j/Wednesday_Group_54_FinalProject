@@ -64,6 +64,8 @@ public class HouseKeepingEmergencyRequestJPanel extends javax.swing.JPanel {
         locationtxtfield = new javax.swing.JTextField();
         btnSendEmergency = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(206, 194, 206));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setText("House Keeping Emergency Request");
 

@@ -67,7 +67,7 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 102, 102));
+        setBackground(new java.awt.Color(206, 194, 206));
         setMaximumSize(new java.awt.Dimension(750, 750));
         setPreferredSize(new java.awt.Dimension(750, 750));
 

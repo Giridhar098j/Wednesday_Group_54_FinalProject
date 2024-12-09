@@ -78,6 +78,9 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
         btnAddComplaint = new javax.swing.JButton();
         btnEmergency = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(206, 194, 206));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Maintainance Oraganization Work Area");
 
         WorkRequestsJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -137,7 +140,7 @@ public class MaintenanceWorkArea extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddComplaint)
                     .addComponent(btnEmergency))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

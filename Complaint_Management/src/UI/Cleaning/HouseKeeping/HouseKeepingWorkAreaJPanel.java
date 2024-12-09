@@ -79,6 +79,8 @@ public class HouseKeepingWorkAreaJPanel extends javax.swing.JPanel {
         btnAddComplaint = new javax.swing.JButton();
         btnEmergency = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(206, 194, 206));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setText("House Keeping Organization Work Area");
 
