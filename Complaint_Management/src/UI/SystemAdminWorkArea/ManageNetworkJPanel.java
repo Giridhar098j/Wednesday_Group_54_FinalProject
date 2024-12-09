@@ -4,6 +4,14 @@
  */
 package UI.SystemAdminWorkArea;
 
+import Business.EcoSystem;
+import Business.Network.HotelNetwork;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Giridhar
@@ -13,8 +21,14 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageNetworkJPanel
      */
+    private JPanel userProcessContainer;
+    private EcoSystem system;
+    
     public ManageNetworkJPanel() {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.system = system;
+        populateNetworkTable();
     }
 
     /**
@@ -26,7 +40,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNetworks = new javax.swing.JTable();
@@ -34,7 +48,12 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         lblName = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
 
-        jButton1.setText("Back");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Managing Network");
 
@@ -62,6 +81,11 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         lblName.setText("Name :");
 
         btnSave.setText("Submit");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -71,7 +95,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnBack)
                         .addGap(127, 127, 127)
                         .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -89,7 +113,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnBack)
                     .addComponent(jLabel1))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -102,14 +126,56 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+         Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
+        sysAdminwjp.populateTree();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        String name = txtName.getText();int cou=0;
+        for(HotelNetwork network : system.getNetworkList())
+        {
+            if(network.getName() == null ? name == null : network.getName().equals(name))
+            cou=1;
+        }
+        if(cou==0)
+        {
+        HotelNetwork network1 = system.createAndAddNetwork();
+        network1.setName(name);
+        populateNetworkTable();
+        txtName.setText("");
+        }
+        else
+            JOptionPane.showMessageDialog(null,"Network is already present");
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblName;
     private javax.swing.JTable tblNetworks;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
+
+    private void populateNetworkTable() {
+        DefaultTableModel model = (DefaultTableModel) NeuNetworksJTable.getModel();
+
+        model.setRowCount(0);
+        for (HotelNetwork network : system.getNetworkList()) {
+            Object[] row = new Object[1];
+            row[0] = network.getName();
+            model.addRow(row);
+        }
+    }
 }
