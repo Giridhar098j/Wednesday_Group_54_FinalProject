@@ -44,8 +44,8 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
      private void populateComboBox() {
         
          combo.removeAllItems();
-        combo.addItem(HotelOrganization.Type.Assault);
-        combo.addItem(HotelOrganization.Type.Theft);
+        combo.addItem(HotelOrganization.Type.Assault.toString());
+        combo.addItem(HotelOrganization.Type.Theft.toString());
        
     }
  Complaints_Suggestions_Request request = new Complaints_Suggestions_Request();
@@ -64,7 +64,7 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         btnSend = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtMessage = new javax.swing.JTextField();
         combo = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
@@ -88,9 +88,9 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtMessageActionPerformed(evt);
             }
         });
 
@@ -117,7 +117,7 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
                             .add(layout.createSequentialGroup()
                                 .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                                .add(txtMessage, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                     .add(layout.createSequentialGroup()
                         .add(194, 194, 194)
                         .add(btnSend, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
@@ -133,7 +133,7 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(txtMessage, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
@@ -221,14 +221,14 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_btnSendActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMessageActionPerformed
         // TODO add your handling code here:
-         if(jTextField1.getText()!=""){
-            message1 = jTextField1.getText();
+         if(txtMessage.getText()!=""){
+            message1 = txtMessage.getText();
             
         }
         else JOptionPane.showMessageDialog(null,"Message field is empty");
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtMessageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -238,6 +238,6 @@ public class HouseKeepingComplaintJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtMessage;
     // End of variables declaration//GEN-END:variables
 }

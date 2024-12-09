@@ -27,4 +27,10 @@ public class HotelManagementEnterprise extends HotelEnterprise {
         
         return orgs;
       }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        return null;
+
+    }
 }

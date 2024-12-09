@@ -24,4 +24,9 @@ public class SecurityEnterprise extends HotelEnterprise {
         orgs.add(HotelOrganization.Type.Theft);
         return orgs;
       }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        return null;
+    }
 }

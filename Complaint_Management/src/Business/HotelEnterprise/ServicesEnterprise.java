@@ -22,4 +22,9 @@ public class ServicesEnterprise extends HotelEnterprise {
         orgs.add(HotelOrganization.Type.Restaurants);      
         return orgs;
       }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        return null;
+    }
 }

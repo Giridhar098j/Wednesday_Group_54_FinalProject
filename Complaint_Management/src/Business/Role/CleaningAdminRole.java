@@ -4,13 +4,12 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import UI.Cleaning.Admin.CleaningAdminAdminWorkAreaJPanel;
 import UI.Cleaning.Admin.CleaningAdminWorkAreaJPanel;
 
 /**
@@ -19,10 +18,13 @@ import UI.Cleaning.Admin.CleaningAdminWorkAreaJPanel;
  */
 public class CleaningAdminRole extends Role{
     
-     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys business,HotelNetwork network) {
+       @Override
+
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business,HotelNetwork network) {
         return new CleaningAdminWorkAreaJPanel(userProcessContainer, enterprise,network);
         
     }
+
+
     
 }

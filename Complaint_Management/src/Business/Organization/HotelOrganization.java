@@ -4,13 +4,17 @@
  */
 package Business.Organization;
 
+import Business.HotelEmployee.HotelEmployeeDirectory;
+import Business.Role.Role;
+import Business.UserAccount.UserAccountDirectory;
+import Business.WorkQueue.StatusQueue;
 import java.util.ArrayList;
 
 /**
  *
  * @author Giridhar
  */
-public class HotelOrganization {
+public abstract class HotelOrganization {
     private String hname;
     private StatusQueue hworkQueue;
     private HotelEmployeeDirectory hemployeeDirectory;

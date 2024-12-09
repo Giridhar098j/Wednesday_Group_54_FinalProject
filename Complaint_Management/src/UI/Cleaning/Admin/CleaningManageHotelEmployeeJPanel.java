@@ -38,7 +38,7 @@ public class CleaningManageHotelEmployeeJPanel extends javax.swing.JPanel {
         organizationEmpJComboBox.removeAllItems();
         
         for (HotelOrganization organization : organizationDir.getHotelOrganizationList()){
-            organizationEmpJComboBox.addItem(organization);
+            organizationEmpJComboBox.addItem(organization.toString());
         }
     }
 
@@ -67,7 +67,7 @@ public class CleaningManageHotelEmployeeJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        OrganizationsJTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         organizationEmpJComboBox = new javax.swing.JComboBox<>();
@@ -84,7 +84,7 @@ public class CleaningManageHotelEmployeeJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        OrganizationsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -95,7 +95,7 @@ public class CleaningManageHotelEmployeeJPanel extends javax.swing.JPanel {
                 "Name"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(OrganizationsJTable);
 
         jLabel2.setText("Organization:");
 
@@ -206,13 +206,13 @@ public class CleaningManageHotelEmployeeJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable OrganizationsJTable;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateEmployee;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox<String> organizationEmpJComboBox;
     // End of variables declaration//GEN-END:variables

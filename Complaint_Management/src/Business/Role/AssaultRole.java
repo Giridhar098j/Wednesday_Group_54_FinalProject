@@ -4,7 +4,7 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.AssaultOrganization;
@@ -21,13 +21,16 @@ import javax.swing.JPanel;
  * @author Atharva
  */
 public class AssaultRole extends Role{
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSys business, HotelNetwork network) {
+
+    @Override
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise, EcoSystem business, HotelNetwork network) {
     if (organization instanceof AssaultOrganization) {
         return new AssaultWorkAreaJPanel(userProcessContainer, account, (AssaultOrganization) organization, enterprise, business, network);
     } else if (organization instanceof HouseKeepingOrganization) {
         return new HouseKeepingWorkAreaJPanel(userProcessContainer, account, (HouseKeepingOrganization) organization, enterprise, business, network);
     } else {
         throw new IllegalArgumentException("Unsupported organization type: " + organization.getClass().getName());
+    }
     }
     
      @Override
