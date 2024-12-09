@@ -22,7 +22,7 @@ public class SysConfiguration {
         
         HotelEmployee Hemployee = system.getEmployeeDirectory().createHotelEmployee("Giridhar");
         
-        UserAccount ua = system.getUserAccountDirectory().createUserAccount("SystemAdmin", "SystemAdmin","divyasree79723@gmail.com" ,Hemployee, new SysAdminRole());
+        UserAccount ua = system.getUserAccountDirectory().createUserAccount("SystemAdmin", "SystemAdmin","giridharjajapuram@gmail.com" ,Hemployee, new SysAdminRole());
         
         return system;
     }
