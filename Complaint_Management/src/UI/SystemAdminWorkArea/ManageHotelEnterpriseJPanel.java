@@ -5,7 +5,12 @@
 package UI.SystemAdminWorkArea;
 
 import Business.EcoSystem;
+import Business.Network.HotelNetwork;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,23 +42,28 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btnBack = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        tblEnterprise = new javax.swing.JTable();
+        lblNetwork = new javax.swing.JLabel();
+        lblEnt = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        btnAdd = new javax.swing.JButton();
+        cmbNetwork = new javax.swing.JComboBox<>();
+        cmbEnt = new javax.swing.JComboBox<>();
+        txtName = new javax.swing.JTextField();
+        btnDlt = new javax.swing.JButton();
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("Managing Enterprise");
+        lblTitle.setText("Managing Enterprise");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEnterprise.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -72,21 +82,31 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblEnterprise);
 
-        jLabel2.setText("Network :");
+        lblNetwork.setText("Network :");
 
-        jLabel3.setText("Enterprise Type :");
+        lblEnt.setText("Enterprise Type :");
 
-        jLabel4.setText("Name :");
+        lblName.setText("Name :");
 
-        jButton1.setText("Add");
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNetwork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEnt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton2.setText("Delete Enterprise");
+        btnDlt.setText("Delete Enterprise");
+        btnDlt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDltActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,25 +117,25 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lblNetwork)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(140, 140, 140)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, 108, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(cmbNetwork, 0, 108, Short.MAX_VALUE)
+                                    .addComponent(cmbEnt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtName)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(83, 83, 83)
-                        .addComponent(jButton2))
+                        .addComponent(btnDlt))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3)
+                        .addComponent(lblName)
+                        .addComponent(lblEnt)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnBack)
                             .addGap(123, 123, 123)
-                            .addComponent(jLabel1))))
-                .addContainerGap(117, Short.MAX_VALUE))
+                            .addComponent(lblTitle))))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,42 +143,138 @@ public class ManageHotelEnterpriseJPanel extends javax.swing.JPanel {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
-                    .addComponent(jLabel1))
+                    .addComponent(lblTitle))
                 .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(lblNetwork)
+                    .addComponent(cmbNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDlt))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblEnt)
+                    .addComponent(cmbEnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAdd)
                 .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        if (!txtName.getText().equals("")) {
+            HotelNetwork network = (HotelNetwork) cmbNetwork.getSelectedItem();
+            HotelEnterprise.HotelEnterpriseType type = (HotelEnterprise.HotelEnterpriseType) EnterprisesTypeJComboBox.getSelectedItem();
+
+            if (network == null || type == null) {
+                JOptionPane.showMessageDialog(null, "Invalid");
+                return;
+            }
+
+            String name = txtName.getText();
+
+
+
+            HotelEnterprise enterprise = network.getEnterpriseDirectory().createAndAddHotelEnterprise(name, type);
+            JOptionPane.showMessageDialog(null, "Enterprise has been created successfully");
+            populateTable();
+            txtName.setText("");
+       }
+       else {
+            JOptionPane.showMessageDialog(null, "Enter a name for the Enterprise", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDltActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblEnterprise.getSelectedRow();
+        if (selectedRow >= 0) {
+
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Would you like to delete it?", "Warning", dialogButton);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                HotelEnterprise p = (HotelEnterprise) tblEnterprise.getValueAt(selectedRow, 0);
+
+                for (HotelNetwork network : system.getNetworkList()) {
+                    for (HotelEnterprise enterprise : network.getEnterpriseDirectory().getHotelEnterpriseList()) {
+
+                        if (p == enterprise) {
+                            network.getEnterpriseDirectory().getHotelEnterpriseList().remove(p);
+                            
+                            break;
+                        }
+
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null, "Successfully deleted it!");
+                populateTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a Row from table to continue! ", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDltActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
+        sysAdminwjp.populateTree();
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton btnDlt;
+    private javax.swing.JComboBox<String> cmbEnt;
+    private javax.swing.JComboBox<String> cmbNetwork;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblEnt;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNetwork;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTable tblEnterprise;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblEnterprise.getModel();
+
+        model.setRowCount(0);
+        for (HotelNetwork network : system.getNetworkList()) {
+            for (HotelEnterprise enterprise : network.getEnterpriseDirectory().getHotelEnterpriseList()) {
+                Object[] row = new Object[3];
+                row[0] = enterprise;
+                row[1] = network.getName();
+                row[2] = enterprise.getHotelEnterpriseType().getValue();
+
+                model.addRow(row);
+            }
+        }
+    }
+    private void populateComboBox() {
+        cmbNetwork.removeAllItems();
+        cmbEnt.removeAllItems();
+
+        for (HotelNetwork network : system.getNetworkList()) {
+            cmbNetwork.addItem(network);
+        }
+
+        for (HotelEnterprise.HotelEnterpriseType type : HotelEnterprise.HotelEnterpriseType.values()) {
+            cmbEnt.addItem(type);
+        }
+
+    }
 }
