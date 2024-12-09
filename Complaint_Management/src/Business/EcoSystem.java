@@ -4,14 +4,20 @@
  */
 package Business;
 
+import Business.HotelEnterprise.HotelEnterprise;
+import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
+import Business.Role.HotelAdminRole;
+import Business.Role.Role;
+import Business.Role.SecurityAdminRole;
+import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
 /**
  *
  * @author Giridhar
  */
-public class EcoSystem {
+public class EcoSystem extends HotelOrganization {
     private static EcoSystem business;
     private ArrayList<HotelNetwork> networkList;
     public static EcoSystem getInstance(){
@@ -20,6 +26,10 @@ public class EcoSystem {
         }
         return business;
     }
+    private EcoSystem(){
+        super(null);
+        networkList=new ArrayList<HotelNetwork>();
+    }
     
     public HotelNetwork createAndAddNetwork(){
         HotelNetwork network=new HotelNetwork();
@@ -27,17 +37,12 @@ public class EcoSystem {
         return network;
     }
    
-     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roleList=new ArrayList<Role>();
         roleList.add(new SecurityAdminRole());
         roleList.add(new HotelAdminRole());
         
         return roleList;
-    }
-    private EcoSys(){
-        super(null);
-        networkList=new ArrayList<HotelNetwork>();
     }
 
     public ArrayList<HotelNetwork> getNetworkList() {

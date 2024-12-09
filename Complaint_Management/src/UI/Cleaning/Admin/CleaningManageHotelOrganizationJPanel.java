@@ -35,8 +35,8 @@ public class CleaningManageHotelOrganizationJPanel extends javax.swing.JPanel {
     
      private void populateCombo(){
         
-        orgnizationJComboBox.addItem(Type.Maintainance);
-                orgnizationJComboBox.addItem(Type.HouseKeeping);
+        orgnizationJComboBox.addItem(Type.Maintainance.toString());
+                orgnizationJComboBox.addItem(Type.HouseKeeping.toString());
 
         
         

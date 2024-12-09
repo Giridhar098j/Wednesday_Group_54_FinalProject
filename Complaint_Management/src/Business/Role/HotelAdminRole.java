@@ -4,12 +4,12 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
 import Business.UserAccount.UserAccount;
-import UI.HotelManagement.HotelAdminRole.HotelManagementHotelAdminWorkAreaJPanel;
+import UI.HotelManagement.HotelAdmin.HotelManagementHotelAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**

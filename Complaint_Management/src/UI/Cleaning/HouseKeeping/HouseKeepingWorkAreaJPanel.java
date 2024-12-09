@@ -5,7 +5,7 @@
 package UI.Cleaning.HouseKeeping;
 
 import java.awt.CardLayout;
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.MaintainanceOrganization;
@@ -29,12 +29,12 @@ public class HouseKeepingWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form HouseKeepingWorkAreaJPanel
      */
     private JPanel userProcessContainer;
-    private EcoSys business;
+    private EcoSystem business;
     private UserAccount userAccount;
     private HouseKeepingOrganization HKOrganization;
     private HotelEnterprise enterprise;
     private HotelNetwork network;
-    public HouseKeepingWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSys business,HotelNetwork network) {
+    public HouseKeepingWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, HotelOrganization organization, HotelEnterprise enterprise,EcoSystem business,HotelNetwork network) {
         initComponents();
         this.enterprise=enterprise;
         this.userProcessContainer = userProcessContainer;
@@ -75,14 +75,14 @@ public class HouseKeepingWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        WorkRequestsJTable = new javax.swing.JTable();
         btnAddComplaint = new javax.swing.JButton();
         btnEmergency = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setText("House Keeping Organization Work Area");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        WorkRequestsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -93,7 +93,7 @@ public class HouseKeepingWorkAreaJPanel extends javax.swing.JPanel {
                 "Message", "Receiver", "Status", "Response"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(WorkRequestsJTable);
 
         btnAddComplaint.setText("Add Complaint");
         btnAddComplaint.addActionListener(new java.awt.event.ActionListener() {
@@ -159,10 +159,10 @@ public class HouseKeepingWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable WorkRequestsJTable;
     private javax.swing.JButton btnAddComplaint;
     private javax.swing.JButton btnEmergency;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

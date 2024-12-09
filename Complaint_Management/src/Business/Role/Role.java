@@ -4,7 +4,7 @@
  */
 package Business.Role;
 
-import Business.EcoSys;
+import Business.EcoSystem;
 import Business.HotelEnterprise.HotelEnterprise;
 import Business.Network.HotelNetwork;
 import Business.Organization.HotelOrganization;
@@ -46,7 +46,7 @@ public abstract class Role {
             UserAccount account, 
             HotelOrganization organization, 
             HotelEnterprise enterprise, 
-            EcoSys business,HotelNetwork network);
+            EcoSystem business,HotelNetwork network);
 
     @Override
     public String toString() {
